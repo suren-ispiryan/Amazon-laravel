@@ -21,7 +21,10 @@ class UserInfoController extends Controller
             'default' => false,
         ]);
         if ($address) {
-            return response()->json('success');
+            $userData = Address::with('users')
+                ->where('number', $request->number)
+                ->first();
+            return response()->json($userData);
         } else {
             return response()->json('failure');
         }
@@ -29,8 +32,8 @@ class UserInfoController extends Controller
 
     public function getUserInfo ()
     {
-        $userInfo = User::with('addresses')
-                           ->where('id', auth()->user()->id)
+        $userInfo = Address::with('users')
+                           ->where('user_id', auth()->user()->id)
                            ->get();
         return response()->json($userInfo);
     }
@@ -42,12 +45,13 @@ class UserInfoController extends Controller
         Address::where('id', '<>', $request->id)->where('user_id', auth()->user()->id)->update([
             'default' => false
         ]);
-        return response('successfully set as default');
+        $updatedAddress = Address::where('id', $request->id)->first();
+        return response()->json($updatedAddress );
     }
 
     public function deleteAddress (Request $request) {
         Address::where('id', $request->id)->delete();
-        return response('address deleted successfully');
+        return response()->json($request->id);
     }
 
     public function changePassword (Request $request) {

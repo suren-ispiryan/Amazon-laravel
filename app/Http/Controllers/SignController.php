@@ -10,12 +10,12 @@ class SignController extends Controller
 {
     public function register (Request $request)
     {
-        if ($request->userData['password'] === $request->userData['confirmation']) {
+        if ($request->registerInfo['password'] === $request->registerInfo['confirmation']) {
             $user = User::create([
-                'name' => $request->userData['name'],
-                'surname' => $request->userData['surname'],
-                'email' => $request->userData['email'],
-                'password' => Hash::make($request->userData['password'])
+                'name' => $request->registerInfo['name'],
+                'surname' => $request->registerInfo['surname'],
+                'email' => $request->registerInfo['email'],
+                'password' => Hash::make($request->registerInfo['password'])
             ]);
             if ($user) {
                 Auth::login($user);
@@ -27,8 +27,8 @@ class SignController extends Controller
 
     public function login (Request $request)
     {
-        $email = $request->userLoginData['email'];
-        $password = $request->userLoginData['password'];
+        $email = $request->loginInfo['email'];
+        $password =  $request->loginInfo['password'];
         $credentials = [
             'email' => $email,
             'password' => $password

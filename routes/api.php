@@ -26,14 +26,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // Products
     Route::post('create-product', [ProductController::class, 'createProduct']);
     Route::get('get-auth-user-products', [ProductController::class, 'getAuthUserProducts']);
-    Route::get('delete-auth-user-products/{id}', [ProductController::class, 'deleteAuthUserProducts']);
+    Route::delete('delete-auth-user-products/{id}', [ProductController::class, 'deleteAuthUserProducts']);
     Route::get('update-product-data/{id}', [ProductController::class, 'updateProductData']);
     Route::post('update-product', [ProductController::class, 'updateProduct']);
     // Profile
     Route::post('create-address', [UserInfoController::class, 'createAddress']);
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);
     Route::get('make-address-default/{id}', [UserInfoController::class, 'makeAddressDefault']);
-    Route::get('delete-address/{id}', [UserInfoController::class, 'deleteAddress']);
+    Route::delete('delete-address/{id}', [UserInfoController::class, 'deleteAddress']);
     Route::post('change-password', [UserInfoController::class, 'changePassword']);
 });
 
