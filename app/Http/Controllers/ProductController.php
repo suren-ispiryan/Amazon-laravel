@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,7 @@ class ProductController extends Controller
     }
 
     public function getAuthUserProducts() {
-        $products = Product::with('user')->get();
+        $products = Product::with('user')->where('user_id', Auth::user()->id)->get();
         return response()->json($products);
     }
 

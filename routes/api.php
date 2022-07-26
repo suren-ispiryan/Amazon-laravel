@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserInfoController;
+use App\Http\Controllers\AllProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('change-password', [UserInfoController::class, 'changePassword']);
 });
 
+// All products
+Route::get('/get-all-user-products',  [AllProductsController::class, 'getAllUsersPosts']);
