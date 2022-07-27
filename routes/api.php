@@ -41,3 +41,4 @@ Route::middleware('auth:sanctum')->group(function () {
 // All products
 Route::get('/get-all-user-products',  [AllProductsController::class, 'getAllUsersProducts']);
 Route::get('/get-product-details/{id}',  [AllProductsController::class, 'getProductDetails']);
+Route::post('/get-searched-product', [AllProductsController::class, 'searchProduct']);

@@ -16,4 +16,12 @@ class AllProductsController extends Controller
         $productDetails = Product::with('user')->where('id', $request->id)->first();
         return response()->json($productDetails);
     }
+
+    public function searchProduct (Request $request) {
+        $searchedKeyword = $request->searchParameter;
+        $searchResult = Product::with('user')
+                               ->where('name', 'like', "%{$searchedKeyword}%")
+                               ->get();
+        return response()->json($searchResult);
+    }
 }
