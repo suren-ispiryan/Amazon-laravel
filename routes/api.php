@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\AllProductsController;
@@ -36,9 +37,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('make-address-default/{id}', [UserInfoController::class, 'makeAddressDefault']);
     Route::delete('delete-address/{id}', [UserInfoController::class, 'deleteAddress']);
     Route::post('change-password', [UserInfoController::class, 'changePassword']);
+    // cart
+    Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart']);
+    Route::get('/get-from-cart', [CartController::class, 'getFromCart']);
+    Route::get('/remove-from-cart/{id}', [CartController::class, 'removeFromCart']);
 });
 
 // All products
 Route::get('/get-all-user-products',  [AllProductsController::class, 'getAllUsersProducts']);
 Route::get('/get-product-details/{id}',  [AllProductsController::class, 'getProductDetails']);
 Route::post('/get-searched-product', [AllProductsController::class, 'searchProduct']);
+Route::post('/get-guest-from-cart', [CartController::class, 'getGuestCartProducts']);
+//Route::get('/remove-from-guest-cart/{id}',  [CartController::class, 'removeFromGuestCart']);

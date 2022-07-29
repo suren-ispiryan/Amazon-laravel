@@ -21,6 +21,7 @@ class AllProductsController extends Controller
         $searchedKeyword = $request->searchParameter;
         $searchResult = Product::with('user')
                                ->where('name', 'like', "%{$searchedKeyword}%")
+                               ->orWhere('description', 'like', "%{$searchedKeyword}%")
                                ->get();
         return response()->json($searchResult);
     }
