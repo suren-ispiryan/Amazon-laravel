@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,9 +21,21 @@ class SignController extends Controller
             ]);
             if ($user) {
                 Auth::login($user);
+
+                $ids = $request->guestCardProducts;
+//            if ($user && $ids) {
+                foreach ($ids as $id) {
+                    Cart::create([
+                        'user_id' => auth()->user()->id,
+                        'product_id' => $id,
+                        'product_count' => 1,
+                    ]);
+                }
+//            }
                 return response('success');
             }
         }
+
         return response('failure');
     }
 

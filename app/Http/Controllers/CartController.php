@@ -32,6 +32,7 @@ class CartController extends Controller
     public function getFromCart () {
         $allFromCart = Cart::with('user')
                            ->with('product')
+                           ->where('user_id', auth()->user()->id)
                            ->get();
         return response()->json($allFromCart);
     }

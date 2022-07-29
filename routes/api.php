@@ -48,4 +48,3 @@ Route::get('/get-all-user-products',  [AllProductsController::class, 'getAllUser
 Route::get('/get-product-details/{id}',  [AllProductsController::class, 'getProductDetails']);
 Route::post('/get-searched-product', [AllProductsController::class, 'searchProduct']);
 Route::post('/get-guest-from-cart', [CartController::class, 'getGuestCartProducts']);
-//Route::get('/remove-from-guest-cart/{id}',  [CartController::class, 'removeFromGuestCart']);
