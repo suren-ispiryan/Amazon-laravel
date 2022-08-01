@@ -64,4 +64,10 @@ class CartController extends Controller
 
         return response()->json($userAddedProducts);
     }
+
+    public function buyProductsFromCart () {
+
+
+        return response()->json(123);
+    }
 }
