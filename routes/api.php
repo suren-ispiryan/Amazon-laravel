@@ -41,7 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart']);
     Route::get('/get-from-cart', [CartController::class, 'getFromCart']);
     Route::get('/remove-from-cart/{id}', [CartController::class, 'removeFromCart']);
+    // ordering
     Route::get('/buy-products-from-cart', [CartController::class, 'buyProductsFromCart']);
+    Route::get('/get-ordered', [CartController::class, 'getOrderedProducts']);
 });
 
 // All products
