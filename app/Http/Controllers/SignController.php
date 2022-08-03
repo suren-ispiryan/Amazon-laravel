@@ -27,8 +27,8 @@ class SignController extends Controller
                 foreach ($ids as $id) {
                     Cart::create([
                         'user_id' => auth()->user()->id,
-                        'product_id' => $id,
-                        'product_count' => 1,
+                        'product_id' => (int)$id['id'],
+                        'product_count' => (int)$id['count'],
                     ]);
                 }
 //            }

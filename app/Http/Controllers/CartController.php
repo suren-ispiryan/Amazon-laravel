@@ -9,19 +9,13 @@ use App\Models\Order;
 
 class CartController extends Controller
 {
-    public function addToCart ($id) {
-        $item = Cart::where('user_id', auth()->user()->id)
-                    ->where('product_id', $id)
-                    ->first();
-        if ($item) {
-            $item->increment('product_count');
-        } else {
+    public function addToCart ($id, $count) {
             $item = Cart::create([
                 'user_id' => auth()->user()->id,
                 'product_id' => $id,
-                'product_count' => 1,
+                'product_count' => $count,
             ]);
-        }
+
         $fullAddedData = Cart::with('user')
                              ->with('product')
                              ->where('product_id', $id)
@@ -111,4 +105,21 @@ class CartController extends Controller
                                 ->get();
         return response()->json($orderedProducts);
     }
+
+    public function reduceCount ($id) {
+        $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
+        if ($prod->product_count > 1) {
+            $prod->decrement('product_count');
+        } else {
+            $prod->delete();
+        }
+        return response()->json($prod);
+    }
+
+    public function addCount ($id) {
+        $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
+        $prod->increment('product_count');
+        return response()->json($prod);
+    }
+
 }
