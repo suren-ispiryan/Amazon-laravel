@@ -27,7 +27,8 @@ class ProductController extends Controller
             'color' => $request->color,
             'size' => $request->size,
             'category' => $request->category,
-            'picture' => $image_name
+            'picture' => $image_name,
+            'in_Stock' => $request->inStock
         ]);
         if ($Product) {
             $p = Product::with('user')
@@ -80,7 +81,8 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'color' => $request->color,
                 'size' => $request->size,
-                'category' => $request->category
+                'category' => $request->category,
+                'in_stock' => $request->inStock
         ]);
         if ($p) {
             $updatedProduct = Product::with('user')

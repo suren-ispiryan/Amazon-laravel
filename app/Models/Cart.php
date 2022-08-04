@@ -27,6 +27,6 @@ class Cart extends Model
 
     public function order()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

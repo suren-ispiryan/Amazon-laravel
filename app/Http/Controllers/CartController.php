@@ -30,8 +30,8 @@ class CartController extends Controller
                            ->get();
         $chosen = [];
         foreach ($allFromCart as $checked) {
-            $fromOrder = Order::where('cart_id', $checked->id)
-                              ->where('product_count', $checked->product_count)
+            $fromOrder = Order::with('cart')->where('cart_id', $checked->id)
+//                              ->where('product_count', $checked->product_count)
                               ->where('customer_id', auth()->user()->id)
                               ->get();
             if (count($fromOrder) === 0) {
@@ -47,12 +47,11 @@ class CartController extends Controller
                            ->where('user_id', auth()->user()->id)
                            ->where('product_id', $id)
                            ->first();
-        if ($removedItem->product_count > 1) {
-            $removedItem->decrement('product_count');
-        } else {
-            $removedItem->decrement('product_count');
-            $removedItem->delete();
-        }
+        $removedItem->update([
+            'product_count' => 0
+        ]);
+        $removedItem->delete();
+
         return response()->json($removedItem);
     }
 
@@ -70,26 +69,27 @@ class CartController extends Controller
     }
 
     public function buyProductsFromCart () {
+        // all cart products
         $cartProducts = Cart::with('product')
                             ->with('user')
                             ->where('user_id', auth()->user()->id)
                             ->get();
         foreach ($cartProducts as $cartProduct) {
-            $fromOrder = Order::where('cart_id', $cartProduct->id)
-                              ->where('customer_id', auth()->user()->id)
-                              ->get();
-            if (count($fromOrder) === 0) {
-                $order = Order::create([
+            // check if cart product exists in orders
+            $inOrder = Order::where('cart_id', $cartProduct->id)->get();
+            if (count($inOrder) === 0) {
+                $order = Order::with('cart')->create([
                     'cart_id' => $cartProduct->id,
                     'owner_id' => $cartProduct->product->user->id,
                     'customer_id' => auth()->user()->id,
                     'product_count' => $cartProduct->product_count,
                     'price' => $cartProduct->product->price,
-                    'address'=> $cartProduct->user->addresses->where('default', 1)[0]->id
+                    'address' => $cartProduct->user->addresses->where('default', 1)[0]->id
                 ]);
-            } else {
-                Order::where('cart_id', $cartProduct->id)->update([
-                    'product_count' => $cartProduct->product_count
+                // in stock minus
+                $p = Product::where('id', $order->cart->product_id)->first();
+                Product::where('id', $order->cart->product_id)->update([
+                    'in_stock' => $p->in_stock - $cartProduct->product_count
                 ]);
             }
         }
@@ -107,7 +107,9 @@ class CartController extends Controller
     }
 
     public function reduceCount ($id) {
-        $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
+        $prod = Cart::where('user_id', auth()->user()->id)
+                    ->where('product_id', $id)
+                    ->first();
         if ($prod->product_count > 1) {
             $prod->decrement('product_count');
         } else {
@@ -118,7 +120,10 @@ class CartController extends Controller
 
     public function addCount ($id) {
         $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
-        $prod->increment('product_count');
+        $total = Product::where('id', $id)->first();
+        if ($prod->product_count < $total->in_stock) {
+            $prod->increment('product_count');
+        }
         return response()->json($prod);
     }
 
