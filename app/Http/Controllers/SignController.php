@@ -23,7 +23,7 @@ class SignController extends Controller
                 Auth::login($user);
 
                 $ids = $request->guestCardProducts;
-//            if ($user && $ids) {
+            if ($ids) {
                 foreach ($ids as $id) {
                     Cart::create([
                         'user_id' => auth()->user()->id,
@@ -31,11 +31,10 @@ class SignController extends Controller
                         'product_count' => (int)$id['count'],
                     ]);
                 }
-//            }
-                return response('success');
+            }
+            return response('success');
             }
         }
-
         return response('failure');
     }
 
@@ -47,12 +46,39 @@ class SignController extends Controller
             'email' => $email,
             'password' => $password
         ];
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('token')->plainTextToken;
-            return response($token);
+        $superAdminCheck = User::where('email', $email)->first();
+        if ($superAdminCheck->role === 'user') {
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                $token = $user->createToken('token')->plainTextToken;
+                return response($token);
+            }
         }
         return response('failure');
+    }
+
+    public function adminLogin (Request $request)
+    {
+        $email = $request->loginAdminInfo['email'];
+        $password =  $request->loginAdminInfo['password'];
+        $credentials = [
+            'email' => $email,
+            'password' => $password
+        ];
+        $superAdminCheck = User::where('email', $email)->first();
+        if ($superAdminCheck->role !== 'user') {
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                $token = $user->createToken('token')->plainTextToken;
+                return response($token);
+            }
+        }
+        return response('failure');
+    }
+
+    public function getAuthUserRole () {
+        $authUserRole = User::where('id', auth()->user()->id)->first();
+        return response()->json($authUserRole->role);
     }
 
     public function logOut ()

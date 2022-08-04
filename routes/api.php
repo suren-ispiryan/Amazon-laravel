@@ -21,6 +21,7 @@ use App\Http\Controllers\AllProductsController;
 // Sign
 Route::post('register', [SignController::class, 'register']);
 Route::post('login', [SignController::class, 'login']);
+Route::post('login-admin', [SignController::class, 'adminLogin']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Sign
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // ordering
     Route::get('/buy-products-from-cart', [CartController::class, 'buyProductsFromCart']);
     Route::get('/get-ordered', [CartController::class, 'getOrderedProducts']);
+    // admin
+    Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
 });
 
 // All products
