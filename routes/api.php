@@ -52,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
     // admin products
     Route::get('get-all-user-data', [AdminProductsController::class, 'getAllUserData']);
+    Route::delete('/delete-users-product/{id}', [AdminProductsController::class, 'deleteUserProduct']);
+    Route::post('update-user-product', [AdminProductsController::class, 'updateUserProduct']);
 });
 
 // All products
