@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\AllProductsController;
+use App\Http\Controllers\AdminProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +48,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // ordering
     Route::get('/buy-products-from-cart', [CartController::class, 'buyProductsFromCart']);
     Route::get('/get-ordered', [CartController::class, 'getOrderedProducts']);
-    // admin
+    // admin login
     Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
+    // admin products
+    Route::get('get-all-user-data', [AdminProductsController::class, 'getAllUserData']);
 });
 
 // All products
