@@ -9,6 +9,7 @@ use App\Http\Controllers\AllProductsController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminOrdersController;
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\AdminProductParametersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-all-users', [AdminUsersController::class, 'getUserList']);
     Route::get('/delete-users/{id}', [AdminUsersController::class, 'deleteUser']);
     Route::post('update-user', [AdminUsersController::class, 'updateUser']);
+    // admin product parameters
+    Route::post('add-category', [AdminProductParametersController::class, 'addCategory']);
+    Route::get('get-product-categories', [AdminProductParametersController::class, 'getProductCategories']);
+    Route::get('remove-category/{id}', [AdminProductParametersController::class, 'removeProductCategories']);
 });
 
 // All products
