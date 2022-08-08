@@ -57,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('update-user-product', [AdminProductsController::class, 'updateUserProduct']);
     // admin orders
     Route::get('get-all-ordered-products', [AdminOrdersController::class, 'getAllOrderedProducts']);
+    Route::get('all-users', [AdminOrdersController::class, 'getAllUsers']);
 });
 
 // All products
