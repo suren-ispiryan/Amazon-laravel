@@ -8,6 +8,7 @@ use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\AllProductsController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminOrdersController;
+use App\Http\Controllers\AdminUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // admin orders
     Route::get('get-all-ordered-products', [AdminOrdersController::class, 'getAllOrderedProducts']);
     Route::get('all-users', [AdminOrdersController::class, 'getAllUsers']);
+    // admin users
+    Route::get('get-all-users', [AdminUsersController::class, 'getUserList']);
+    Route::get('/delete-users/{id}', [AdminUsersController::class, 'deleteUser']);
+    Route::post('update-user', [AdminUsersController::class, 'updateUser']);
 });
 
 // All products
