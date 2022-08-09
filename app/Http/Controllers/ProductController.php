@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function createProduct (Request $request) {
+    public function createProduct (Request $request)
+    {
         $file = $request->picture;
         // add image to laravel folder
         if($file){
@@ -39,12 +40,14 @@ class ProductController extends Controller
         }
     }
 
-    public function getAuthUserProducts() {
+    public function getAuthUserProducts()
+    {
         $products = Product::with('user')->where('user_id', Auth::user()->id)->get();
         return response()->json($products);
     }
 
-    public function deleteAuthUserProducts ($id) {
+    public function deleteAuthUserProducts ($id)
+    {
         $ProductImage = Product::where('id', $id)->first();
         $file_path = public_path().'/assets/product_images/'.$ProductImage->picture;
         unlink($file_path);
@@ -52,12 +55,14 @@ class ProductController extends Controller
         return response()->json($id);
     }
 
-    public function updateProductData ($id) {
+    public function updateProductData ($id)
+    {
         $updatedProduct = Product::with('user')->where('id', $id)->first();
         return response()->json($updatedProduct);
     }
 
-    public function updateProduct (Request $request) {
+    public function updateProduct (Request $request)
+    {
         $file = $request->picture;
         if(file_exists($file)){
             // delete old product picture

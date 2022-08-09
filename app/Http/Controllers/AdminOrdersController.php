@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class AdminOrdersController extends Controller
 {
-    public function getAllOrderedProducts () {
+    public function getAllOrderedProducts ()
+    {
         $orders = Order::with('cart.product.user')->get();
         return response()->json($orders);
     }
 
-    public function getAllUsers () {
+    public function getAllUsers ()
+    {
         $users = User::get();
         return response()->json($users);
     }

@@ -7,17 +7,20 @@ use Illuminate\Http\Request;
 
 class AdminUsersController extends Controller
 {
-    public function getUserList () {
+    public function getUserList ()
+    {
         $userList = User::get();
         return response()->json($userList);
     }
 
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
         User::where('id', $id)->delete();
         return response()->json($id);
     }
 
-    public function updateUser(Request $request) {
+    public function updateUser(Request $request)
+    {
         $id = $request->id;
         User::where('id', $id)->update([
             'name' => $request->updateUserData['name'],

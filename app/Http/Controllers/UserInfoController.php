@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class UserInfoController extends Controller
 {
-    public function createAddress (Request $request) {
+    public function createAddress (Request $request)
+    {
         $address = Address::create([
             'user_id' => auth()->user()->id,
             'name' => $request->name,
@@ -38,7 +39,8 @@ class UserInfoController extends Controller
         return response()->json($userInfo);
     }
 
-    public function makeAddressDefault (Request $request) {
+    public function makeAddressDefault (Request $request)
+    {
         Address::where('id', $request->id)->update([
            'default' => true
         ]);
@@ -49,12 +51,14 @@ class UserInfoController extends Controller
         return response()->json($updatedAddress );
     }
 
-    public function deleteAddress (Request $request) {
+    public function deleteAddress (Request $request)
+    {
         Address::where('id', $request->id)->delete();
         return response()->json($request->id);
     }
 
-    public function changePassword (Request $request) {
+    public function changePassword (Request $request)
+    {
         $oldPassword = $request->oldPassword;
         $newPassword = $request->newPassword;
         $repeatNewPassword = $request->repeatNewPassword;

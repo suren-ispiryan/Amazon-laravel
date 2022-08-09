@@ -39,8 +39,12 @@ class SignController extends Controller
 
     public function login (Request $request)
     {
-        $email = $request->loginInfo['email'];
-        $password =  $request->loginInfo['password'];
+//        $email = $request->loginInfo['email'];
+//        $password =  $request->loginInfo['password'];
+// redux start
+        $email = $request->email;
+        $password =  $request->password;
+// redux end
         $credentials = [
             'email' => $email,
             'password' => $password
@@ -75,7 +79,8 @@ class SignController extends Controller
         return response('failure');
     }
 
-    public function getAuthUserRole () {
+    public function getAuthUserRole ()
+    {
         $authUserRole = User::where('id', auth()->user()->id)->first();
         return response()->json($authUserRole->role);
     }

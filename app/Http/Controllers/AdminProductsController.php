@@ -8,19 +8,22 @@ use Illuminate\Http\Request;
 
 class AdminProductsController extends Controller
 {
-    public function getAllUserData () {
+    public function getAllUserData ()
+    {
         $allUserProducts = Product::with('user')
                                   ->with('carts.order')
                                   ->get();
         return response()->json($allUserProducts);
     }
 
-    public function deleteUserProduct ($id) {
+    public function deleteUserProduct ($id)
+    {
         Product::where('id', $id)->delete();
         return response()->json($id);
     }
 
-    public function updateUserProduct (Request $request) {
+    public function updateUserProduct (Request $request)
+    {
         $file = $request->picture;
         if(file_exists($file)){
             // delete old product picture

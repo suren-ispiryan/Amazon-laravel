@@ -9,7 +9,8 @@ use App\Models\Order;
 
 class CartController extends Controller
 {
-    public function addToCart ($id, $count) {
+    public function addToCart ($id, $count)
+    {
             $item = Cart::create([
                 'user_id' => auth()->user()->id,
                 'product_id' => $id,
@@ -23,7 +24,8 @@ class CartController extends Controller
         return response()->json($fullAddedData);
     }
 
-    public function getFromCart () {
+    public function getFromCart ()
+    {
         $allFromCart = Cart::with('user')
                            ->with('product')
                            ->where('user_id', auth()->user()->id)
@@ -41,7 +43,8 @@ class CartController extends Controller
         return response()->json($chosen);
     }
 
-    public function removeFromCart ($id) {
+    public function removeFromCart ($id)
+    {
         $removedItem = Cart::with('user')
                            ->with('product')
                            ->where('user_id', auth()->user()->id)
@@ -55,7 +58,8 @@ class CartController extends Controller
         return response()->json($removedItem);
     }
 
-    public function getGuestCartProducts (Request $request) {
+    public function getGuestCartProducts (Request $request)
+    {
         $ids = $request->guestCartProducts;
         $userAddedProducts = [];
         foreach ($ids as $id) {
@@ -68,7 +72,8 @@ class CartController extends Controller
         return response()->json($userAddedProducts);
     }
 
-    public function buyProductsFromCart () {
+    public function buyProductsFromCart ()
+    {
         // all cart products
         $cartProducts = Cart::with('product')
                             ->with('user')
@@ -96,7 +101,8 @@ class CartController extends Controller
         return response()->json(Cart::where('user_id', auth()->user()->id)->get());
     }
 
-    public function getOrderedProducts () {
+    public function getOrderedProducts ()
+    {
         $orderedProducts = Order::with('cart')
                                 ->with('cart.user')
                                 ->with('cart.product')
@@ -106,7 +112,8 @@ class CartController extends Controller
         return response()->json($orderedProducts);
     }
 
-    public function reduceCount ($id) {
+    public function reduceCount ($id)
+    {
         $prod = Cart::where('user_id', auth()->user()->id)
                     ->where('product_id', $id)
                     ->first();
@@ -118,7 +125,8 @@ class CartController extends Controller
         return response()->json($prod);
     }
 
-    public function addCount ($id) {
+    public function addCount ($id)
+    {
         $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
         $total = Product::where('id', $id)->first();
         if ($prod->product_count < $total->in_stock) {
