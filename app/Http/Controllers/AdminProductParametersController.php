@@ -24,4 +24,22 @@ class AdminProductParametersController extends Controller
         Category::where('id', $id)->delete();
         return response()->json($category);
     }
+
+    public  function addSize(Request $request) {
+        $size = Size::create([
+            'size' => $request->size
+        ]);
+        return response()->json($size);
+    }
+
+    public function getProductSizes() {
+        $size = Size::get();
+        return response()->json($size);
+    }
+
+    public function removeProductSizes($id) {
+        $size = Size::where('id', $id)->first();
+        Size::where('id', $id)->delete();
+        return response()->json($size);
+    }
 }

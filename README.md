@@ -53,8 +53,8 @@ My Store
 - Ability to see total earnings for each product.
 
 Admin
-- Colors CRUD
-- Sizes CRUD
++ Categories CRUD
++ Sizes CRUD
 + Users crud.
 + Products crud.
 + Must see all orders.

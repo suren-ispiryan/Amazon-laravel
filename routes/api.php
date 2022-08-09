@@ -68,6 +68,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('add-category', [AdminProductParametersController::class, 'addCategory']);
     Route::get('get-product-categories', [AdminProductParametersController::class, 'getProductCategories']);
     Route::get('remove-category/{id}', [AdminProductParametersController::class, 'removeProductCategories']);
+    Route::post('add-size', [AdminProductParametersController::class, 'addSize']);
+    Route::get('get-product-sizes', [AdminProductParametersController::class, 'getProductSizes']);
+    Route::get('remove-size/{id}', [AdminProductParametersController::class, 'removeProductSizes']);
 });
 
 // All products
