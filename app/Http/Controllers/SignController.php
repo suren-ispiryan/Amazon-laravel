@@ -6,10 +6,13 @@ use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\AdminLoginRequest;
 
 class SignController extends Controller
 {
-    public function register (Request $request)
+    public function register (RegisterRequest $request)
     {
         if ($request->registerInfo['password'] === $request->registerInfo['confirmation']) {
             $user = User::create([
@@ -37,7 +40,7 @@ class SignController extends Controller
         return response('failure');
     }
 
-    public function login (Request $request)
+    public function login (LoginRequest $request)
     {
         $email = $request->email;
         $password =  $request->password;
@@ -56,7 +59,7 @@ class SignController extends Controller
         return response('failure');
     }
 
-    public function adminLogin (Request $request)
+    public function adminLogin (AdminLoginRequest $request)
     {
         $email = $request->loginAdminInfo['email'];
         $password =  $request->loginAdminInfo['password'];

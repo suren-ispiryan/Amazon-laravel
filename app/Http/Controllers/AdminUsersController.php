@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminUpdateUserRequest;
 
 class AdminUsersController extends Controller
 {
@@ -19,7 +20,7 @@ class AdminUsersController extends Controller
         return response()->json($id);
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(AdminUpdateUserRequest $request)
     {
         $id = $request->id;
         User::where('id', $id)->update([

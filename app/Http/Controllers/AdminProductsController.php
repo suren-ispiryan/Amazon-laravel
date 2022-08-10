@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminUpdateUserProductRequest;
 
 class AdminProductsController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminProductsController extends Controller
         return response()->json($id);
     }
 
-    public function updateUserProduct (Request $request)
+    public function updateUserProduct (AdminUpdateUserProductRequest $request)
     {
         $file = $request->picture;
         if(file_exists($file)){

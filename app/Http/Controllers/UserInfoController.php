@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CreateAddressRequest;
 use App\Models\User;
 use App\Models\Address;
 use Illuminate\Support\Facades\Hash;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 
 class UserInfoController extends Controller
 {
-    public function createAddress (Request $request)
+    public function createAddress (CreateAddressRequest $request)
     {
         $address = Address::create([
             'user_id' => auth()->user()->id,

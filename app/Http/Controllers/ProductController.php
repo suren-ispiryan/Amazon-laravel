@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    public function createProduct (Request $request)
+    public function createProduct (CreateProductRequest $request)
     {
         $file = $request->picture;
         // add image to laravel folder
@@ -29,7 +31,7 @@ class ProductController extends Controller
             'size' => $request->size,
             'category' => $request->category,
             'picture' => $image_name,
-            'in_Stock' => $request->inStock
+            'in_stock' => $request->in_stock
         ]);
         if ($Product) {
             $p = Product::with('user')
@@ -61,7 +63,7 @@ class ProductController extends Controller
         return response()->json($updatedProduct);
     }
 
-    public function updateProduct (Request $request)
+    public function updateProduct (UpdateProductRequest $request)
     {
         $file = $request->picture;
         if(file_exists($file)){
@@ -87,7 +89,7 @@ class ProductController extends Controller
                 'color' => $request->color,
                 'size' => $request->size,
                 'category' => $request->category,
-                'in_stock' => $request->inStock
+                'in_stock' => $request->in_stock
         ]);
         if ($p) {
             $updatedProduct = Product::with('user')
