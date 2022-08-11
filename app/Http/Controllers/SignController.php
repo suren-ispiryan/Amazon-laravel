@@ -37,7 +37,6 @@ class SignController extends Controller
                     ]);
                 }
             }
-            Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['password']));
             return response('success');
             }
         }
