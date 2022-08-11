@@ -24,11 +24,18 @@ class AdminUsersController extends Controller
     {
         $id = $request->id;
         User::where('id', $id)->update([
-            'name' => $request->updateUserData['name'],
-            'surname' => $request->updateUserData['surname'],
-            'email' => $request->updateUserData['email'],
-            'role' => $request->updateUserData['role']
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'role' => $request->role
         ]);
+
+        $email = User::where('email', $request->email)->first();
+        if (!$email) {
+            User::where('id', $id)->update([
+                'email' => $request->email
+            ]);
+        }
+
         $updatedUser = User::where('id', $id)->first();
         return response()->json($updatedUser);
     }

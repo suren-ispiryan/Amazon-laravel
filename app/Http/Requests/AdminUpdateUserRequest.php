@@ -25,10 +25,10 @@ class AdminUpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'updateUserData.name' => 'min:2|max:15',
-            'updateUserData.surname' => 'min:2|max:15',
-            'email' => 'email|unique:users',
-            'updateUserData.role' => Rule::in(['user', 'admin', 'superAdmin'])
+            'name' => 'min:2|max:15',
+            'surname' => 'min:2|max:15',
+//            'email' => 'email|unique:users',
+            'role' => Rule::in(['user', 'admin', 'superAdmin'])
         ];
     }
 }

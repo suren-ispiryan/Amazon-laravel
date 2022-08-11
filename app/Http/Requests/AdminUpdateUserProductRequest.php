@@ -25,12 +25,12 @@ class AdminUpdateUserProductRequest extends FormRequest
         return [
             'name' => 'min:2|max:15',
             'description' => 'min:10|max:255',
-            'brand' => 'min:2|max:25',
+            'brand' => 'min:5|max:25',
             'price' => 'numeric|digits_between:1,5',
             'color' => 'min:2|max:15',
             'size' => 'min:2|max:15',
             'category' => 'min:2|max:15',
-            'in_stock' => 'numeric|digits_between:1,500'
+            'in_stock' => 'numeric|digits_between:1,5'
         ];
     }
 }
