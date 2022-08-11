@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\User\VerifyMail;
 use App\Models\User;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Support\Facades\Mail;
 
 class SignController extends Controller
 {
@@ -23,8 +25,9 @@ class SignController extends Controller
             ]);
             if ($user) {
                 Auth::login($user);
+                Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['password']));
 
-                $ids = $request->guestCardProducts;
+            $ids = $request->guestCardProducts;
             if ($ids) {
                 foreach ($ids as $id) {
                     Cart::create([
@@ -34,6 +37,7 @@ class SignController extends Controller
                     ]);
                 }
             }
+            Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['password']));
             return response('success');
             }
         }

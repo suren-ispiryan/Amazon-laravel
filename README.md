@@ -23,7 +23,7 @@ Registration
 + Email
 + Password
 + Re-enter password
-- Confirm email
++ Confirm email
 
 Logged In User
 + Form validations.
