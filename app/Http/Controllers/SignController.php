@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Mail\User\VerifyMail;
 use App\Models\User;
 use App\Models\Cart;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,19 +26,19 @@ class SignController extends Controller
             ]);
             if ($user) {
                 Auth::login($user);
-                Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['password']));
+                Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['email']));
 
-            $ids = $request->guestCardProducts;
-            if ($ids) {
-                foreach ($ids as $id) {
-                    Cart::create([
-                        'user_id' => auth()->user()->id,
-                        'product_id' => (int)$id['id'],
-                        'product_count' => (int)$id['count'],
-                    ]);
+                $ids = $request->guestCardProducts;
+                if ($ids) {
+                    foreach ($ids as $id) {
+                        Cart::create([
+                            'user_id' => auth()->user()->id,
+                            'product_id' => (int)$id['id'],
+                            'product_count' => (int)$id['count'],
+                        ]);
+                    }
                 }
-            }
-            return response('success');
+                return response('success');
             }
         }
         return response('failure');
@@ -52,14 +53,13 @@ class SignController extends Controller
             'password' => $password
         ];
         $superAdminCheck = User::where('email', $email)->first();
-        if ($superAdminCheck->role === 'user') {
+        if ($superAdminCheck->role === 'user' && $superAdminCheck->email_verified_at !== null) {
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('token')->plainTextToken;
                 return response($token);
             }
         }
-        return response('failure');
     }
 
     public function adminLogin (AdminLoginRequest $request)
@@ -90,5 +90,11 @@ class SignController extends Controller
     public function logOut ()
     {
         return response('success');
+    }
+
+    public function verify ($email)
+    {
+        User::where('email', $email)->update(['email_verified_at' => Carbon::now()]);
+        return response()->json('successfully verified');
     }
 }

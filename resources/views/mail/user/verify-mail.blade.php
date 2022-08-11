@@ -1,11 +1,11 @@
 @component('mail::message')
 # Introduction
 
-Your password is {{$password}},
+Your email is {{$email}}
 <br>
-Keep it in secret and don't tell anybody!!!
+To complete verification please follow to instructions.
 
-@component('mail::button', ['url' => 'http://localhost:3000/login'])
+@component('mail::button', ['url' => 'http://localhost:3000/verify/'.$email])
 Complete verification
 @endcomponent
 

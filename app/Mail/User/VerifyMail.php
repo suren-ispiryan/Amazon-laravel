@@ -11,17 +11,18 @@ class VerifyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $password;
+    public $email;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($password)
+    public function __construct($email)
     {
         //
-        $this->password = $password;
+        $this->email = $email;
     }
 
     /**
