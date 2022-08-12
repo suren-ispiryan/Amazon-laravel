@@ -21,14 +21,15 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+
     public function rules()
     {
         return [
-            'registerInfo.name' => 'required|min:2|max:20',
-            'registerInfo.surname' => 'required|min:2|max:25',
-            'email' => 'email|unique:users',
-            'password' => 'min:6|required_with:confirmation|same:confirmation',
-            'confirmation' => 'min:6'
+            'name' => 'required|min:2|max:20',
+            'surname' => 'required|min:2|max:25',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|max:8|same:confirmation',
+            'confirmation' => 'required|min:6|max:8'
         ];
     }
 }

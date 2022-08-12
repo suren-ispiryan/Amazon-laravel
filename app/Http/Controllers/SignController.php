@@ -17,19 +17,19 @@ class SignController extends Controller
 {
     public function register (RegisterRequest $request)
     {
-        if ($request->registerInfo['password'] === $request->registerInfo['confirmation']) {
+        if ($request->password === $request->confirmation) {
             $str = rand();
             $token = md5($str);
             $user = User::create([
-                'name' => $request->registerInfo['name'],
-                'surname' => $request->registerInfo['surname'],
-                'email' => $request->registerInfo['email'],
-                'password' => Hash::make($request->registerInfo['password']),
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
                 'token' => $token
             ]);
             if ($user) {
                 Auth::login($user);
-                Mail::to($request->registerInfo['email'])->send(new VerifyMail($token));
+                Mail::to($request->email)->send(new VerifyMail($token));
 
                 $ids = $request->guestCardProducts;
                 if ($ids) {
@@ -44,7 +44,9 @@ class SignController extends Controller
                 return response('success');
             }
         }
-        return response('failure');
+        $requestErrors = new RegisterRequest();
+        $messages = $requestErrors->messages();
+        return response()->json($messages);
     }
 
     public function login (LoginRequest $request)

@@ -1,7 +1,7 @@
 @component('mail::message')
 # Introduction
 
-Your email is {{$token}}
+Your token is {{$token}}
 <br>
 To complete verification please follow to instructions.
 
