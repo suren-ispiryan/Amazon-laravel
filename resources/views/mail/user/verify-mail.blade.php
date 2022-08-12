@@ -1,11 +1,11 @@
 @component('mail::message')
 # Introduction
 
-Your email is {{$email}}
+Your email is {{$token}}
 <br>
 To complete verification please follow to instructions.
 
-@component('mail::button', ['url' => 'http://localhost:3000/verify/'.$email])
+@component('mail::button', ['url' => 'http://localhost:3000/verify/'.$token])
 Complete verification
 @endcomponent
 

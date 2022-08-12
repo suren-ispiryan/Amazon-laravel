@@ -26,7 +26,7 @@ use App\Http\Controllers\AdminProductParametersController;
 Route::post('register', [SignController::class, 'register']);
 Route::post('login', [SignController::class, 'login']);
 Route::post('login-admin', [SignController::class, 'adminLogin']);
-Route::get('verify/{email}', [SignController::class, 'verify']);
+Route::get('verify/{token}', [SignController::class, 'verify']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Sign

@@ -18,15 +18,18 @@ class SignController extends Controller
     public function register (RegisterRequest $request)
     {
         if ($request->registerInfo['password'] === $request->registerInfo['confirmation']) {
+            $str = rand();
+            $token = md5($str);
             $user = User::create([
                 'name' => $request->registerInfo['name'],
                 'surname' => $request->registerInfo['surname'],
                 'email' => $request->registerInfo['email'],
-                'password' => Hash::make($request->registerInfo['password'])
+                'password' => Hash::make($request->registerInfo['password']),
+                'token' => $token
             ]);
             if ($user) {
                 Auth::login($user);
-                Mail::to($request->registerInfo['email'])->send(new VerifyMail($request->registerInfo['email']));
+                Mail::to($request->registerInfo['email'])->send(new VerifyMail($token));
 
                 $ids = $request->guestCardProducts;
                 if ($ids) {
@@ -92,9 +95,9 @@ class SignController extends Controller
         return response('success');
     }
 
-    public function verify ($email)
+    public function verify ($token)
     {
-        User::where('email', $email)->update(['email_verified_at' => Carbon::now()]);
+        User::where('token', $token)->update(['email_verified_at' => Carbon::now()]);
         return response()->json('successfully verified');
     }
 }

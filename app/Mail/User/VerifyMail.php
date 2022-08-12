@@ -11,7 +11,7 @@ class VerifyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email;
+    public $token;
 
 
     /**
@@ -19,10 +19,10 @@ class VerifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($token)
     {
         //
-        $this->email = $email;
+        $this->token = $token;
     }
 
     /**
