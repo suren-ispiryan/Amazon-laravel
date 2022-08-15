@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminOrdersController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminProductParametersController;
+use App\Http\Controllers\SavedForLaterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ use App\Http\Controllers\AdminProductParametersController;
 */
 
 // Sign
-Route::post('register', [SignController::class, 'register']);
+Route::post('register', [SignController::class, ' ']);
 Route::post('login', [SignController::class, 'login']);
 Route::post('login-admin', [SignController::class, 'adminLogin']);
 Route::get('verify/{token}', [SignController::class, 'verify']);
@@ -52,6 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // ordering
     Route::get('/buy-products-from-cart', [CartController::class, 'buyProductsFromCart']);
     Route::get('/get-ordered', [CartController::class, 'getOrderedProducts']);
+    // save for later
+    Route::get('/save-product-for-later/{id}', [SavedForLaterController::class, 'saveForLater']);
+    Route::get('/get-saved-for-later', [SavedForLaterController::class, 'getSaveForLater']);
+    Route::delete('/remove-product-from-save-for-later/{id}', [SavedForLaterController::class, 'removeSaveForLater']);
     // admin login
     Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
     // admin products

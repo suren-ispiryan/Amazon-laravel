@@ -31,4 +31,9 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function users() {
+        return $this->belongsToMany(User ::class, 'product_user', 'product_id', 'user_id')
+                    ->withTimestamps();
+	}
 }

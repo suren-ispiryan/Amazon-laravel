@@ -13,7 +13,6 @@ Guests
 - Can filter the list by product categories.
 + Can add the product to the cart.(localStorage).
 + Can remove the product from the cart.
-- Can save the product from the cart into the “Save for later” list.
 + Once clicked on “Proceed to checkout” should be redirected to the login/register page.
 + Note: Once registered data from localStorage should be stored in DB.
 
@@ -36,7 +35,8 @@ Logged In User
 + Ability set default one from available addresses before buying products.
 + Show ordered list.
 + Adding and reducing product count form cart-products and ready-to-buy pages.
-
+- Can save the product from the cart into the “Save for later” list.
+- 
 My Store
 + Product CRUD.
 + Name.
