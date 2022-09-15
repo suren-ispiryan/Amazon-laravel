@@ -10,6 +10,7 @@ Project setup
 6) php artisan serve
 7) create .env file
 8) connect db ()
+9) change manually status from user to admin
 
 All users
 + loading spinner.
