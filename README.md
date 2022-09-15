@@ -14,6 +14,17 @@ Project setup
 
 Description
 
+Project setup
+1) clone
+2) composer install
+3) php artisan key:generate
+4) php artisan config:cache
+5) php artisan migrate
+6) php artisan serve
+7) create .env file
+8) connect db ()
+9) change manually status from user to admin
+
 All users
 + loading spinner.
 + Should see a list of all products (cards view).
