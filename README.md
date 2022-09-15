@@ -1,4 +1,17 @@
 Amazon
+
+Project setup
+1) clone
+2) composer install
+3) php artisan key:generate
+4) php artisan config:cache
+5) php artisan migrate
+6) php artisan serve
+7) create .env file
+8) connect db ()
+9) php artisan db:seed or php artisan migrate:refresh --seed
+
+
 Description
 
 All users
@@ -10,7 +23,7 @@ All users
 + Remove products from cart.
 
 Guests
-- Can filter the list by product categories.
++ Can filter the list by product categories.
 + Can add the product to the cart.(localStorage).
 + Can remove the product from the cart.
 + Once clicked on “Proceed to checkout” should be redirected to the login/register page.
@@ -61,4 +74,4 @@ Admin
 + Products crud.
 + Must see all orders.
 - Category CRUD (categories can have subcategories).
-- Have a seed to import default categories with their subcategories.
++ Have a seed to import default categories with their subcategories, users, categories and sizes.

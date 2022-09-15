@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('size');
             $table->string('category');
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')

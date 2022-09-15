@@ -24,7 +24,7 @@ use App\Http\Controllers\SavedForLaterController;
 */
 
 // Sign
-Route::post('register', [SignController::class, ' ']);
+Route::post('register', [SignController::class, 'register']);
 Route::post('login', [SignController::class, 'login']);
 Route::post('login-admin', [SignController::class, 'adminLogin']);
 Route::get('verify/{token}', [SignController::class, 'verify']);
