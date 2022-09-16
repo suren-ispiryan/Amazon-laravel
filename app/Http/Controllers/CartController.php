@@ -11,11 +11,11 @@ class CartController extends Controller
 {
     public function addToCart ($id, $count)
     {
-            $item = Cart::create([
-                'user_id' => auth()->user()->id,
-                'product_id' => $id,
-                'product_count' => $count,
-            ]);
+        $item = Cart::create([
+            'user_id' => auth()->user()->id,
+            'product_id' => $id,
+            'product_count' => $count,
+        ]);
 
         $fullAddedData = Cart::with('user')
                              ->with('product')
@@ -32,7 +32,8 @@ class CartController extends Controller
                            ->get();
         $chosen = [];
         foreach ($allFromCart as $checked) {
-            $fromOrder = Order::with('cart')->where('cart_id', $checked->id)
+            $fromOrder = Order::with('cart')
+                              ->where('cart_id', $checked->id)
 //                              ->where('product_count', $checked->product_count)
                               ->where('customer_id', auth()->user()->id)
                               ->get();
@@ -107,7 +108,7 @@ class CartController extends Controller
                                 ->with('cart.user')
                                 ->with('cart.product')
                                 ->with('cart.user.addresses')
-                                ->where('owner_id', auth()->user()->id)
+                                ->where('customer_id', auth()->user()->id)
                                 ->get();
         return response()->json($orderedProducts);
     }

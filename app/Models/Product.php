@@ -19,7 +19,8 @@ class Product extends Model
         'size',
         'category',
         'picture',
-        'in_stock'
+        'in_stock',
+        'published'
     ];
 
     public function user()

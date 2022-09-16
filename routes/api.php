@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('delete-auth-user-products/{id}', [ProductController::class, 'deleteAuthUserProducts']);
     Route::get('update-product-data/{id}', [ProductController::class, 'updateProductData']);
     Route::post('update-product', [ProductController::class, 'updateProduct']);
+    Route::get('publish-product/{id}', [ProductController::class, 'publishProduct']);
     // Profile
     Route::post('create-address', [UserInfoController::class, 'createAddress']);
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);

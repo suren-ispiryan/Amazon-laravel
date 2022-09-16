@@ -31,7 +31,8 @@ class ProductController extends Controller
             'size' => $request->size,
             'category' => $request->category,
             'picture' => $image_name,
-            'in_stock' => $request->in_stock
+            'in_stock' => $request->in_stock,
+            'published' => 0
         ]);
         if ($Product) {
             $p = Product::with('user')
@@ -51,8 +52,10 @@ class ProductController extends Controller
     public function deleteAuthUserProducts ($id)
     {
         $ProductImage = Product::where('id', $id)->first();
-        $file_path = public_path().'/assets/product_images/'.$ProductImage->picture;
-        unlink($file_path);
+        if ($ProductImage->picture) {
+            $file_path = public_path().'/assets/product_images/'.$ProductImage->picture;
+            unlink($file_path);
+        }
         Product::where('id', $id)->delete();
         return response()->json($id);
     }
@@ -98,5 +101,19 @@ class ProductController extends Controller
                 ->first();
             return response()->json($updatedProduct);
         }
+    }
+
+    public function publishProduct ($id) {
+        $prod = Product::where('id', $id)->first();
+        if ($prod->published === 0) {
+            $prod->update([
+                'published' => 1
+            ]);
+        } else {
+            $prod->update([
+                'published' => 0
+            ]);
+        }
+        return response()->json($prod);
     }
 }
