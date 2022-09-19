@@ -16,10 +16,16 @@ class Order extends Model
         'product_count',
         'price',
         'address',
+        'product_id',
     ];
 
     public function cart ()
     {
         return $this->belongsTo(Cart::class, 'cart_id');
+    }
+
+    public function product ()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

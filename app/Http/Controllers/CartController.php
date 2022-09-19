@@ -90,7 +90,8 @@ class CartController extends Controller
                     'customer_id' => auth()->user()->id,
                     'product_count' => $cartProduct->product_count,
                     'price' => $cartProduct->product->price,
-                    'address' => $cartProduct->user->addresses->where('default', 1)[0]->id
+                    'address' => $cartProduct->user->addresses->where('default', 1)[0]->id,
+                    'product_id' => $cartProducts->product->id
                 ]);
                 // in stock minus
                 $p = Product::where('id', $order->cart->product_id)->first();
@@ -128,7 +129,10 @@ class CartController extends Controller
 
     public function addCount ($id)
     {
-        $prod = Cart::where('user_id', auth()->user()->id)->where('product_id', $id)->first();
+        $prod = Cart::where('user_id', auth()
+                    ->user()->id)
+                    ->where('product_id', $id)
+                    ->first();
         $total = Product::where('id', $id)->first();
         if ($prod->product_count < $total->in_stock) {
             $prod->increment('product_count');

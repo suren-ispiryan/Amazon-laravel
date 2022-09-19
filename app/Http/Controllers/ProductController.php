@@ -36,6 +36,7 @@ class ProductController extends Controller
         ]);
         if ($Product) {
             $p = Product::with('user')
+                        ->with('orders')
                         ->where('name', $request->name)
                         ->where('description', $request->description)
                         ->first();
@@ -45,7 +46,10 @@ class ProductController extends Controller
 
     public function getAuthUserProducts()
     {
-        $products = Product::with('user')->where('user_id', Auth::user()->id)->get();
+        $products = Product::with('user')
+            ->with('orders')
+            ->where('user_id', Auth::user()->id)
+            ->get();
         return response()->json($products);
     }
 
@@ -60,9 +64,26 @@ class ProductController extends Controller
         return response()->json($id);
     }
 
+    public function deleteProductImage($id) {
+        $ProductImage = Product::where("id", $id)->first();
+        Product::where("id", $id)->update([
+            'picture' => null
+        ]);
+        $file_path = public_path().'/assets/product_images/'.$ProductImage->picture;
+        unlink($file_path);
+
+        $ProductImage1 = Product::with('user')
+            ->with('orders')
+            ->where('id', $id)
+            ->first();
+        return response()->json($ProductImage1);
+    }
+
     public function updateProductData ($id)
     {
-        $updatedProduct = Product::with('user')->where('id', $id)->first();
+        $updatedProduct = Product::with('user')
+            ->where('id', $id)
+            ->first();
         return response()->json($updatedProduct);
     }
 
@@ -71,9 +92,11 @@ class ProductController extends Controller
         $file = $request->picture;
         if(file_exists($file)){
             // delete old product picture
-            $p = Product::where('id', $request->id)->first();
+            $p = Product::with('orders')->where('id', $request->id)->first();
             $f = public_path().'/assets/product_images/'.$p->picture;
-            unlink($f);
+            if ($p->picture) {
+                unlink($f);
+            }
             // add new product picture
             $image_name = 'product'.Carbon::now()->timestamp.'.'.$file->getClientOriginalExtension();
             $destinationPath = public_path('assets/product_images');
@@ -83,6 +106,7 @@ class ProductController extends Controller
             $p = Product::where('id', $request->id)->first();
             Product::where('id', $request->id)->update(['picture' => $p->picture]);
         }
+
         $p = Product::where('id', $request->id)->update([
                 'user_id' => auth()->user()->id,
                 'name' => $request->name,
@@ -94,17 +118,19 @@ class ProductController extends Controller
                 'category' => $request->category,
                 'in_stock' => $request->in_stock
         ]);
-        if ($p) {
-            $updatedProduct = Product::with('user')
-                ->where('name', $request->name)
-                ->where('description', $request->description)
-                ->first();
-            return response()->json($updatedProduct);
-        }
+
+        $updatedProduct = Product::with('user')
+            ->with('orders')
+            ->where('name', $request->name)
+            ->where('description', $request->description)
+            ->first();
+        return response()->json($updatedProduct);
     }
 
     public function publishProduct ($id) {
-        $prod = Product::where('id', $id)->first();
+        $prod = Product::with('orders')
+            ->where('id', $id)
+            ->first();
         if ($prod->published === 0) {
             $prod->update([
                 'published' => 1
