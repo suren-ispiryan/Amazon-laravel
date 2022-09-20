@@ -59,7 +59,7 @@ Logged In User
 + Ability set default one from available addresses before buying products.
 + Show ordered list.
 + Adding and reducing product count form cart-products and ready-to-buy pages.
-- Can save the product from the cart into the “Save for later” list.
++ Can save the product from the cart into the “Save for later” list.
 
 My Store
 + Product CRUD.
