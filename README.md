@@ -73,7 +73,7 @@ My Store
 + Choose Category.
 + Images.
 + Delete product image
-+ Publish/Unpublish Product (not available in products for guests if unpublished).
++ Publish/UnPublish Product (not available in products for guests if unpublished).
 + Ability to see how many times users bought each product.
 + Ability to choose products subcategories while creating a product.
 - Ability to choose a main image.

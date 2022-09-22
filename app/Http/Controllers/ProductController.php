@@ -32,7 +32,7 @@ class ProductController extends Controller
             'color' => $request->color,
             'size' => $request->size,
             'category' => $request->category,
-            'subcategory' => $request->subcategory,
+            'subcategory' => $request->subcategory !== 'undefined' && $request->subcategory !== null ? $request->subcategory : $request->category,
             'picture' => $image_name,
             'in_stock' => $request->in_stock,
             'published' => 0
