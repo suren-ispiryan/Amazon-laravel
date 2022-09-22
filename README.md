@@ -75,13 +75,14 @@ My Store
 + Delete product image
 + Publish/Unpublish Product (not available in products for guests if unpublished).
 + Ability to see how many times users bought each product.
++ Ability to choose products subcategories while creating a product.
 - Ability to choose a main image.
 - Ability to see total earnings for each product.
 
 Admin
 + Form validations.
 + Categories CRUD.
-- Subcategories CRUD.
++ Subcategories CRUD.
 + Sizes CRUD.
 + Users crud.
 + Products crud.
