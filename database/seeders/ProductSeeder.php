@@ -27,6 +27,7 @@ class ProductSeeder extends Seeder
             'size' => 'Small',
             'published' => 1,
             'category' => 'Cars',
+            'subcategory' => 'Cars',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],[
@@ -40,6 +41,7 @@ class ProductSeeder extends Seeder
             'size' => 'Medium',
             'published' => 0,
             'category' => 'Home',
+            'subcategory' => 'Home',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],[
@@ -53,6 +55,7 @@ class ProductSeeder extends Seeder
             'size' => 'Large',
             'published' => 0,
             'category' => 'Cars',
+            'subcategory' => 'Cars',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],[
@@ -66,6 +69,7 @@ class ProductSeeder extends Seeder
             'size' => 'Extra large',
             'published' => 1,
             'category' => 'Cars',
+            'subcategory' => 'Cars',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ],[
@@ -79,6 +83,7 @@ class ProductSeeder extends Seeder
             'size' => 'Small',
             'published' => 1,
             'category' => 'Books',
+            'subcategory' => 'Books',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]]);
