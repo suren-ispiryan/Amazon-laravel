@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Subcategory;
 use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -30,6 +32,7 @@ class ProductController extends Controller
             'color' => $request->color,
             'size' => $request->size,
             'category' => $request->category,
+            'subcategory' => $request->subcategory,
             'picture' => $image_name,
             'in_stock' => $request->in_stock,
             'published' => 0
@@ -141,5 +144,14 @@ class ProductController extends Controller
             ]);
         }
         return response()->json($prod);
+    }
+
+    public function getSubcategories ($categoryName)
+    {
+        $category = Category::where('category', $categoryName)->first();
+        $categoryId = $category->id;
+
+        $subcategories = Subcategory::where('category_id', $categoryId)->get();
+        return response()->json($subcategories);
     }
 }

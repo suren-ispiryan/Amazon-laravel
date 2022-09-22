@@ -81,9 +81,10 @@ My Store
 Admin
 + Form validations.
 + Categories CRUD.
+- Subcategories CRUD.
 + Sizes CRUD.
 + Users crud.
 + Products crud.
 + Must see all orders.
 + Have a seed to import default categories with their subcategories, users, categories and sizes.
-- Category CRUD (categories can have subcategories).
++ Category CRUD (categories can have subcategories).

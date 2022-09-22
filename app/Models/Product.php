@@ -18,6 +18,7 @@ class Product extends Model
         'color',
         'size',
         'category',
+        'subcategory',
         'picture',
         'in_stock',
         'published'

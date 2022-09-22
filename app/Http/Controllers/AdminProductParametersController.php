@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Size;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
 class AdminProductParametersController extends Controller
@@ -47,5 +48,33 @@ class AdminProductParametersController extends Controller
         $size = Size::where('id', $id)->first();
         Size::where('id', $id)->delete();
         return response()->json($size);
+    }
+
+    public function addSubCategory(Request $request)
+    {
+        $cat = Category::where('category', $request->parentCategory)->first();
+
+        $subCategory = Subcategory::create([
+            'category_id' => $cat->id,
+            'subcategory' => $request->subCategory
+        ]);
+        $subCategory = Subcategory::with('category')
+            ->where('id', $subCategory->id)
+            ->first();
+        return response()->json($subCategory);
+    }
+
+    public function getProductSubCategories() {
+        $subcategories = Subcategory::with('category')
+            ->get();
+        return response()->json($subcategories);
+    }
+
+    public function removeProductSubCategories($id) {
+        $subcategories = Subcategory::with('category')
+            ->where('id', $id)
+            ->first();
+        Subcategory::where('id', $id)->delete();
+        return response()->json($subcategories);
     }
 }

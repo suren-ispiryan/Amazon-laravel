@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('publish-product/{id}', [ProductController::class, 'publishProduct']);
     Route::get('get-auth-user-products', [ProductController::class, 'getAuthUserProducts']);
     Route::get('update-product-data/{id}', [ProductController::class, 'updateProductData']);
+    Route::get('get-product-subcategories/{categoryName}', [ProductController::class, 'getSubcategories']);
     Route::post('update-product', [ProductController::class, 'updateProduct']);
     Route::post('create-product', [ProductController::class, 'createProduct']);
     Route::delete('delete-product-image/{id}', [ProductController::class, 'deleteProductImage']);
@@ -75,10 +76,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // admin product parameters
     Route::get('get-product-sizes', [AdminProductParametersController::class, 'getProductSizes']);
     Route::get('remove-size/{id}', [AdminProductParametersController::class, 'removeProductSizes']);
-    Route::get('remove-category/{id}', [AdminProductParametersController::class, 'removeProductCategories']);
     Route::get('get-product-categories', [AdminProductParametersController::class, 'getProductCategories']);
+    Route::get('remove-category/{id}', [AdminProductParametersController::class, 'removeProductCategories']);
+    Route::get('remove-subcategory/{id}', [AdminProductParametersController::class, 'removeProductSubCategories']);
+    Route::get('get-product-subcategories', [AdminProductParametersController::class, 'getProductSubCategories']);
     Route::post('add-size', [AdminProductParametersController::class, 'addSize']);
     Route::post('add-category', [AdminProductParametersController::class, 'addCategory']);
+    Route::post('add-subcategory', [AdminProductParametersController::class, 'addSubCategory']);
 });
 
 // All products
