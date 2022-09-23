@@ -3,13 +3,13 @@ Amazon
 Project setup
 1) clone
 2) composer install
-3) php artisan key:generate
-4) php artisan config:cache
-5) php artisan migrate
-6) php artisan serve
-7) create .env file
-8) connect db ()
-9) php artisan db:seed or php artisan migrate:refresh --seed
+3) create .env file
+4) connect db ()
+5) php artisan key:generate
+6) php artisan config:cache
+7) php artisan migrate
+8) php artisan db:seed or php artisan migrate:refresh --seed
+9) php artisan serve
 
 
 Description
