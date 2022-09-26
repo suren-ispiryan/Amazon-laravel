@@ -32,7 +32,10 @@ class ProductController extends Controller
             'color' => $request->color,
             'size' => $request->size,
             'category' => $request->category,
-            'subcategory' => $request->subcategory !== 'undefined' && $request->subcategory !== null ? $request->subcategory : $request->category,
+            'subcategory' => $request->subcategory !== 'undefined'
+                          && $request->subcategory !== null
+                             ? $request->subcategory
+                             : $request->category,
             'picture' => $image_name,
             'in_stock' => $request->in_stock,
             'published' => 0
@@ -104,10 +107,16 @@ class ProductController extends Controller
             $image_name = 'product'.Carbon::now()->timestamp.'.'.$file->getClientOriginalExtension();
             $destinationPath = public_path('assets/product_images');
             $file->move($destinationPath,$image_name);
-            Product::where('id', $request->id)->update(['picture' => $image_name]);
+            Product::where('id', $request->id)
+                   ->update([
+                       'picture' => $image_name
+                   ]);
         } else {
             $p = Product::where('id', $request->id)->first();
-            Product::where('id', $request->id)->update(['picture' => $p->picture]);
+            Product::where('id', $request->id)
+                   ->update([
+                       'picture' => $p->picture
+                   ]);
         }
 
         $p = Product::where('id', $request->id)->update([

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -62,4 +63,21 @@ class User extends Authenticatable
     public function product () {
         return $this->belongsToMany(Product ::class)->withTimestamps();
 	}
+
+// mutators -> set data to database
+	public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+// accessors -> get data from database
+    public function getNameAttribute($name)
+    {
+        return ucfirst($name);
+    }
+
+    public function getSurnameAttribute($surname)
+    {
+        return ucfirst($surname);
+    }
 }

@@ -52,7 +52,8 @@ class AdminProductsController extends Controller
             'in_stock' => $request->inStock
         ]);
         if ($p) {
-            $updatedProduct = Product::with('user')->with('carts.order')
+            $updatedProduct = Product::with('user')
+                ->with('carts.order')
                 ->where('name', $request->name)
                 ->where('description', $request->description)
                 ->first();

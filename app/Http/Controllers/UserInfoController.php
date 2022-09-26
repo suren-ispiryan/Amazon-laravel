@@ -45,9 +45,9 @@ class UserInfoController extends Controller
         Address::where('id', $request->id)->update([
            'default' => true
         ]);
-        Address::where('id', '<>', $request->id)->where('user_id', auth()->user()->id)->update([
-            'default' => false
-        ]);
+        Address::where('id', '<>', $request->id)
+               ->where('user_id', auth()->user()->id)
+               ->update(['default' => false]);
         $updatedAddress = Address::where('id', $request->id)->first();
         return response()->json($updatedAddress );
     }

@@ -24,7 +24,7 @@ class SignController extends Controller
                 'name' => $request->name,
                 'surname' => $request->surname,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => $request->password,
                 'token' => $token
             ]);
             if ($user) {

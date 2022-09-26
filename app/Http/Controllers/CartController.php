@@ -129,8 +129,7 @@ class CartController extends Controller
 
     public function addCount ($id)
     {
-        $prod = Cart::where('user_id', auth()
-                    ->user()->id)
+        $prod = Cart::where('user_id', auth()->user()->id)
                     ->where('product_id', $id)
                     ->first();
         $total = Product::where('id', $id)->first();

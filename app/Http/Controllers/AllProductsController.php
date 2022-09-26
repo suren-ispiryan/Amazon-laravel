@@ -17,7 +17,9 @@ class AllProductsController extends Controller
 
     public function getProductDetails (Request $request)
     {
-        $productDetails = Product::with('user')->where('id', $request->id)->first();
+        $productDetails = Product::with('user')
+            ->where('id', $request->id)
+            ->first();
         return response()->json($productDetails);
     }
 
