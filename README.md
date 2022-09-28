@@ -1,15 +1,45 @@
 Amazon
 
-Project setup
+// ========Project setup======== \\
 1) clone
 2) composer install
 3) create .env file
-4) connect db ()
-5) php artisan key:generate
+4) php artisan key:generate
+   
+// ========Database set up======== \\
+5) connect db ()
 6) php artisan config:cache
 7) php artisan migrate
 8) php artisan db:seed or php artisan migrate:refresh --seed
-9) php artisan serve
+
+// ========Mail system mailtrap.io setup======== \\
+9) set in env -> QUEUE_CONNECTION=database
+10) php artisan queue:listen -> after changes
+11) php artisan users:send_products -> for manual testing
+12) php artisan schedule:work -> for automate working
+13) set configs for Mailtrao.io
+   email for mailtrap: suren.ispiryan2016@gmail.com
+   password for mailtrap: testMailtrap96
+   for SMTP set ->
+   ----------------
+   Host: smtp.mailtrap.io
+   Port: 25 or 465 or 587 or 2525
+   Username: db82213896d04a
+   Password: 724e1bcd7e85b5
+   Auth: PLAIN, LOGIN and CRAM-MD5
+   TLS: Optional (STARTTLS on all ports)
+   for POP3 set ->
+   ----------------
+   Host: pop3.mailtrap.io
+   Port: 1100 or 9950
+   Username: db82213896d04a
+   Password: 724e1bcd7e85b5
+   Auth: USER/PASS, PLAIN, LOGIN, APOP and CRAM-MD5
+   TLS: Optional (STARTTLS on all ports)
+
+//========Run poroject========\\
+14) php artisan serve
+
 
 
 Description
@@ -60,6 +90,7 @@ Logged In User
 + Show ordered list.
 + Adding and reducing product count form cart-products and ready-to-buy pages.
 + Can save the product from the cart into the “Save for later” list.
++ Automatically send emails to users about added products in past 24 hours.
 
 My Store
 + Product CRUD.

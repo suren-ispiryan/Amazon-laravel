@@ -10,5 +10,5 @@ Complete verification
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
+{{ config('appname') }}
+@endcomponent.
