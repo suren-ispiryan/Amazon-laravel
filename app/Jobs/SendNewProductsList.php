@@ -3,10 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\User\SendNewProducts;
-use App\Mail\User\VerifyMail;
-use App\Models\Product;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,8 +15,6 @@ class SendNewProductsList implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-//    protected $products;
-
     /**
      * Create a new job instance.
      *
@@ -27,7 +22,7 @@ class SendNewProductsList implements ShouldQueue
      */
     public function __construct()
     {
-//        $this->products = $products;
+
     }
 
     /**

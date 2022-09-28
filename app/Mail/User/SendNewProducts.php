@@ -5,7 +5,6 @@ namespace App\Mail\User;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -31,6 +30,6 @@ class SendNewProducts extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.productList');
+        return $this->markdown('mail.productList');
     }
 }
