@@ -8,7 +8,7 @@
         <br>
         Price: {{$item->price}} $
     </h5>
-        <hr>
+    <hr>
 @endforeach
 @component('mail::button', ['url' => 'http://localhost:3000/login'])
     Login

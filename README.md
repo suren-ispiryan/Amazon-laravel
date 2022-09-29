@@ -14,10 +14,9 @@ Amazon
 
 // ========Mail system mailtrap.io setup======== \\
 9) set in env -> QUEUE_CONNECTION=database
-10) php artisan queue:listen -> after changes
-11) php artisan users:send_products -> for manual testing
-12) php artisan schedule:work -> for automate working
-13) set configs for Mailtrao.io
+10) php artisan queue:listen + php artisan users:send_products -> for manual testing
+11) php artisan queue:listen + php artisan schedule:work -> for automate working
+12) set configs for Mailtrao.io
    email for mailtrap: suren.ispiryan2016@gmail.com
    password for mailtrap: testMailtrap96
    for SMTP set ->
@@ -38,7 +37,7 @@ Amazon
    TLS: Optional (STARTTLS on all ports)
 
 //========Run poroject========\\
-14) php artisan serve
+13) php artisan serve
 
 
 
