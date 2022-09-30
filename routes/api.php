@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\CartController;
@@ -41,6 +42,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('create-product', [ProductController::class, 'createProduct']);
     Route::delete('delete-product-image/{id}', [ProductController::class, 'deleteProductImage']);
     Route::delete('delete-auth-user-products/{id}', [ProductController::class, 'deleteAuthUserProducts']);
+    // Comments
+    Route::post('create-product-comment', [CommentsController::class, 'createProductComment']);
+    Route::get('get-products-comments/{id}', [CommentsController::class, 'getProductComments']);
     // Profile
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);
     Route::get('make-address-default/{id}', [UserInfoController::class, 'makeAddressDefault']);

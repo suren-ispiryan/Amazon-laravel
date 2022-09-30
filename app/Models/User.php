@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return ucfirst($surname);
     }
+
+    public function comments ()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

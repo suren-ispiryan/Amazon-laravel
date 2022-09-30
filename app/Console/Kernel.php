@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('users:send_products')
                  ->timezone('Asia/Yerevan')
-                 ->dailyAt('12:30');
+                 ->dailyAt('12:00');
     }
 
     /**
