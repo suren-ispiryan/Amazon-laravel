@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Comments
     Route::post('create-product-comment', [CommentsController::class, 'createProductComment']);
     Route::get('get-products-comments/{id}', [CommentsController::class, 'getProductComments']);
+    Route::delete('delete-product-comment/{id}', [CommentsController::class, 'deleteProductComment']);
     // Profile
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);
     Route::get('make-address-default/{id}', [UserInfoController::class, 'makeAddressDefault']);

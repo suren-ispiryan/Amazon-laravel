@@ -23,9 +23,17 @@ class CommentsController extends Controller
         return response()->json($comment->load('user'));
     }
 
-    public function getProductComments($id) {
+    public function getProductComments() {
         $comment = Comment::with('user')->get();
 
         return response()->json($comment);
+    }
+
+    public function deleteProductComment($id) {
+        Comment::with('user')
+               ->where('id', $id)
+               ->where('user_id', Auth::user()->id)
+               ->delete();
+        return response()->json($id);
     }
 }
