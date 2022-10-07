@@ -45,6 +45,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Comments
     Route::post('create-product-comment', [CommentsController::class, 'createProductComment']);
     Route::get('get-products-comments/{id}', [CommentsController::class, 'getProductComments']);
+    Route::get('like-products-comments/{id}', [CommentsController::class, 'likeProductComments']);
+    Route::get('dislike-products-comments/{id}', [CommentsController::class, 'dislikeProductComments']);
     Route::delete('delete-product-comment/{id}', [CommentsController::class, 'deleteProductComment']);
     // Profile
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);
