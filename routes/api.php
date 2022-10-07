@@ -38,6 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-auth-user-products', [ProductController::class, 'getAuthUserProducts']);
     Route::get('update-product-data/{id}', [ProductController::class, 'updateProductData']);
     Route::get('get-product-subcategories/{categoryName}', [ProductController::class, 'getSubcategories']);
+    Route::get('get-products-likes/{id}', [ProductController::class, 'getProductLike']);
+    Route::get('like-products/{id}', [ProductController::class, 'likeProduct']);
+    Route::get('unlike-products/{id}', [ProductController::class, 'unlikeProduct']);
     Route::post('update-product', [ProductController::class, 'updateProduct']);
     Route::post('create-product', [ProductController::class, 'createProduct']);
     Route::delete('delete-product-image/{id}', [ProductController::class, 'deleteProductImage']);

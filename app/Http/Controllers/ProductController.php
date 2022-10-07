@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Subcategory;
 use Carbon\Carbon;
 use App\Models\Product;
@@ -162,6 +163,46 @@ class ProductController extends Controller
 
         $subcategories = Subcategory::where('category_id', $categoryId)->get();
         return response()->json($subcategories);
+    }
+
+    public function likeProduct($id)
+    {
+        $like = Like::where('user_id', Auth::user()->id)
+                    ->where('likeable_id', $id)
+                    ->where('likeable_type', Product::class)
+                    ->first();
+
+        if (!$like) {
+            $like = Like::create([
+                'likeable_id' => $id,
+                'likeable_type' => Product::class,
+                'user_id' => Auth::user()->id,
+                'count' => 1
+            ]);
+
+            return response()->json($like);
+        }
+        return response()->json('Failure');
+    }
+
+    public function unlikeProduct($id)
+    {
+        $product = Like::where('user_id', Auth::user()->id)
+                       ->where('likeable_id', $id)
+                       ->where('likeable_type', Product::class)
+                       ->first();
+        if ($product) {
+            $product->delete();
+            return response()->json($product);
+        }
+        return response()->json('Failure');
+    }
+
+    public function getProductLike($id) {
+        $productLikes = Like::where('likeable_type', Product::class)
+                            ->where('likeable_id', $id)
+                            ->get();
+        return response()->json($productLikes);
     }
 }
 

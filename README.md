@@ -68,6 +68,7 @@ Guests
 + Can remove the product from the cart.
 + Once clicked on “Proceed to checkout” should be redirected to the login/register page.
 + Note: Once registered data from localStorage should be stored in DB.
++ must see all products comments.
 
 Registration
 + First Name
@@ -90,6 +91,8 @@ Logged In User
 + Adding and reducing product count form cart-products and ready-to-buy pages.
 + Can save the product from the cart into the “Save for later” list.
 + Automatically send emails to users about added products in past 24 hours.
++ Product comment crud, like, unlike.
++ Product like, unlike.
 
 My Store
 + Product CRUD.
