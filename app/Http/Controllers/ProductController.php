@@ -180,6 +180,9 @@ class ProductController extends Controller
                 'count' => 1
             ]);
 
+            $like->where('likeable_type', Product::class)
+                 ->where('likeable_id', $id)
+                 ->get();
             return response()->json($like);
         }
         return response()->json('Failure');
@@ -198,7 +201,8 @@ class ProductController extends Controller
         return response()->json('Failure');
     }
 
-    public function getProductLike($id) {
+    public function getProductLike($id)
+    {
         $productLikes = Like::where('likeable_type', Product::class)
                             ->where('likeable_id', $id)
                             ->get();
