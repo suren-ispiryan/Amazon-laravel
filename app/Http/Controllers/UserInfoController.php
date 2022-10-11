@@ -24,8 +24,8 @@ class UserInfoController extends Controller
         ]);
         if ($address) {
             $userData = Address::with('users')
-                ->where('number', $request->number)
-                ->first();
+                               ->where('number', $request->number)
+                               ->first();
             return response()->json($userData);
         } else {
             return response()->json('failure');
@@ -34,10 +34,10 @@ class UserInfoController extends Controller
 
     public function getUserInfo ()
     {
-        $userInfo = Address::with('users')
-                           ->where('user_id', auth()->user()->id)
-                           ->get();
-        return response()->json($userInfo);
+        $user_info = Address::with('users')
+                            ->where('user_id', auth()->user()->id)
+                            ->get();
+        return response()->json($user_info);
     }
 
     public function makeAddressDefault (Request $request)
@@ -48,8 +48,8 @@ class UserInfoController extends Controller
         Address::where('id', '<>', $request->id)
                ->where('user_id', auth()->user()->id)
                ->update(['default' => false]);
-        $updatedAddress = Address::where('id', $request->id)->first();
-        return response()->json($updatedAddress );
+        $updated_address = Address::where('id', $request->id)->first();
+        return response()->json($updated_address );
     }
 
     public function deleteAddress (Request $request)
@@ -60,14 +60,14 @@ class UserInfoController extends Controller
 
     public function changePassword (Request $request)
     {
-        $oldPassword = $request->oldPassword;
-        $newPassword = $request->newPassword;
-        $repeatNewPassword = $request->repeatNewPassword;
+        $old_password = $request->oldPassword;
+        $new_password = $request->newPassword;
+        $repeat_new_password = $request->repeatNewPassword;
 
-        if (Hash::check($oldPassword, auth()->user()->password)) {
-            if ($newPassword === $repeatNewPassword) {
+        if (Hash::check($old_password, auth()->user()->password)) {
+            if ($new_password === $repeat_new_password) {
                 User::where('id', auth()->user()->id)->update([
-                   'password' =>  Hash::make($newPassword)
+                   'password' =>  Hash::make($new_password)
                 ]);
                 return response()->json('Password was successfully changed');
             }

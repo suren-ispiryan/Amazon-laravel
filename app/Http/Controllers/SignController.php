@@ -44,8 +44,8 @@ class SignController extends Controller
                 return response('success');
             }
         }
-        $requestErrors = new RegisterRequest();
-        $messages = $requestErrors->messages();
+        $request_errors = new RegisterRequest();
+        $messages = $request_errors->messages();
         return response()->json($messages);
     }
 
@@ -57,8 +57,8 @@ class SignController extends Controller
             'email' => $email,
             'password' => $password
         ];
-        $superAdminCheck = User::where('email', $email)->first();
-        if ($superAdminCheck->role === 'user' && $superAdminCheck->email_verified_at !== null) {
+        $super_admin_check = User::where('email', $email)->first();
+        if ($super_admin_check->role === 'user' && $super_admin_check->email_verified_at !== null) {
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('token')->plainTextToken;
@@ -75,8 +75,8 @@ class SignController extends Controller
             'email' => $email,
             'password' => $password
         ];
-        $superAdminCheck = User::where('email', $email)->first();
-        if ($superAdminCheck->role !== 'user') {
+        $super_admin_check = User::where('email', $email)->first();
+        if ($super_admin_check->role !== 'user') {
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $token = $user->createToken('token')->plainTextToken;
@@ -88,8 +88,8 @@ class SignController extends Controller
 
     public function getAuthUserRole ()
     {
-        $authUserRole = User::where('id', auth()->user()->id)->first();
-        return response()->json($authUserRole->role);
+        $auth_user_role = User::where('id', auth()->user()->id)->first();
+        return response()->json($auth_user_role->role);
     }
 
     public function logOut ()

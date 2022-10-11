@@ -18,8 +18,12 @@ class AdminProductParametersController extends Controller
 
     public function getProductCategories()
     {
-        $categories = Category::get();
-        return response()->json($categories);
+        try {
+            $categories = Category::get();
+            return response()->json($categories);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
     public function removeProductCategories($id)
@@ -54,26 +58,25 @@ class AdminProductParametersController extends Controller
     {
         $cat = Category::where('category', $request->parentCategory)->first();
 
-        $subCategory = Subcategory::create([
+        $subcategory = Subcategory::create([
             'category_id' => $cat->id,
             'subcategory' => $request->subCategory
         ]);
-        $subCategory = Subcategory::with('category')
-            ->where('id', $subCategory->id)
-            ->first();
-        return response()->json($subCategory);
+        $subcategory = Subcategory::with('category')
+                                  ->where('id', $subcategory->id)
+                                  ->first();
+        return response()->json($subcategory);
     }
 
     public function getProductSubCategories() {
-        $subcategories = Subcategory::with('category')
-            ->get();
+        $subcategories = Subcategory::with('category')->get();
         return response()->json($subcategories);
     }
 
     public function removeProductSubCategories($id) {
         $subcategories = Subcategory::with('category')
-            ->where('id', $id)
-            ->first();
+                                    ->where('id', $id)
+                                    ->first();
         Subcategory::where('id', $id)->delete();
         return response()->json($subcategories);
     }

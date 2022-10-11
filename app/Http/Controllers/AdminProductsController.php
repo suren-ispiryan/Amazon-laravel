@@ -11,10 +11,10 @@ class AdminProductsController extends Controller
 {
     public function getAllUserData ()
     {
-        $allUserProducts = Product::with('user')
-                                  ->with('carts.order')
-                                  ->get();
-        return response()->json($allUserProducts);
+        $all_user_products = Product::with('user')
+                                    ->with('carts.order')
+                                    ->get();
+        return response()->json($all_user_products);
     }
 
     public function deleteUserProduct ($id)
@@ -28,19 +28,19 @@ class AdminProductsController extends Controller
         $file = $request->picture;
         if(file_exists($file)){
             // delete old product picture
-            $p = Product::where('id', $request->id)->first();
-            $f = public_path().'/assets/product_images/'.$p->picture;
-            unlink($f);
+            $product = Product::where('id', $request->id)->first();
+            $file_path = public_path().'/assets/product_images/'.$product->picture;
+            unlink($file_path);
             // add new product picture
             $image_name = 'product'.Carbon::now()->timestamp.'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('assets/product_images');
-            $file->move($destinationPath,$image_name);
+            $destination_path = public_path('assets/product_images');
+            $file->move($destination_path,$image_name);
             Product::where('id', $request->id)->update(['picture' => $image_name]);
         } else {
-            $p = Product::where('id', $request->id)->first();
-            Product::where('id', $request->id)->update(['picture' => $p->picture]);
+            $product = Product::where('id', $request->id)->first();
+            Product::where('id', $request->id)->update(['picture' => $product->picture]);
         }
-        $p = Product::where('id', $request->id)->update([
+        $product = Product::where('id', $request->id)->update([
             'user_id' => auth()->user()->id,
             'name' => $request->name,
             'description' => $request->description,
@@ -51,13 +51,13 @@ class AdminProductsController extends Controller
             'category' => $request->category,
             'in_stock' => $request->inStock
         ]);
-        if ($p) {
-            $updatedProduct = Product::with('user')
-                ->with('carts.order')
-                ->where('name', $request->name)
-                ->where('description', $request->description)
-                ->first();
-            return response()->json($updatedProduct);
+        if ($product) {
+            $updated_product = Product::with('user')
+                                      ->with('carts.order')
+                                      ->where('name', $request->name)
+                                      ->where('description', $request->description)
+                                      ->first();
+            return response()->json($updated_product);
         }
     }
 }

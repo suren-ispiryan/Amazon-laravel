@@ -36,8 +36,12 @@ Amazon
    Auth: USER/PASS, PLAIN, LOGIN, APOP and CRAM-MD5
    TLS: Optional (STARTTLS on all ports)
 
-//========Run poroject========\\
+//========Run project========\\
 13) php artisan serve
+
+//=========Login========\\
+14) for admin login go to "/login-admin" page
+    for user login  go to "/login" page
 
 
 

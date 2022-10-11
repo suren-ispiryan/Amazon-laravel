@@ -11,25 +11,32 @@ use Illuminate\Support\Facades\Auth;
 class CommentsController extends Controller
 {
     public function createProductComment(Request $request) {
-        // get data from front
-        $id = $request->id;
-        $productComment = $request->productComment;
-        // set comment to db and get comment
-        $comment = Comment::with('user')->create([
-            'product_id' => $id,
-            'user_id' => Auth::user()->id,
-            'comment' => $productComment
-        ]);
+        try {
+            $id = $request->id;
+            $product_comment = $request->productComment;
+            $comment = Comment::with('user')->create([
+                'product_id' => $id,
+                'user_id' => Auth::user()->id,
+                'comment' => $product_comment
+            ]);
 
-        return response()->json($comment->load('user')->load('likes'));
+            return response()->json($comment->load('user')->load('likes'));
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+
+        }
     }
 
     public function getProductComments($id) {
-        $comment = Comment::with('user')
-                          ->where('product_id', $id)
-                          ->with('likes')
-                          ->get();
-        return response()->json([$comment, Auth::user()->id]);
+        try {
+            $comment = Comment::with('user')
+                              ->where('product_id', $id)
+                              ->with('likes')
+                              ->get();
+            return response()->json([$comment, Auth::user()->id]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
     public function deleteProductComment($id) {

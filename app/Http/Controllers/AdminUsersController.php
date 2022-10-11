@@ -10,14 +10,22 @@ class AdminUsersController extends Controller
 {
     public function getUserList ()
     {
-        $userList = User::get();
-        return response()->json($userList);
+        try {
+            $user_list = User::get();
+            return response()->json($user_list);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
     public function deleteUser($id)
     {
-        User::where('id', $id)->delete();
-        return response()->json($id);
+        try {
+            User::where('id', $id)->delete();
+            return response()->json($id);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
     public function updateUser(AdminUpdateUserRequest $request)
@@ -36,7 +44,7 @@ class AdminUsersController extends Controller
             ]);
         }
 
-        $updatedUser = User::where('id', $id)->first();
-        return response()->json($updatedUser);
+        $updated_user = User::where('id', $id)->first();
+        return response()->json($updated_user);
     }
 }
