@@ -14,11 +14,12 @@ class CommentsController extends Controller
         try {
             $id = $request->id;
             $product_comment = $request->productComment;
-            $comment = Comment::with('user')->create([
+            $commentCreateData = [
                 'product_id' => $id,
                 'user_id' => Auth::user()->id,
                 'comment' => $product_comment
-            ]);
+            ];
+            $comment = Comment::with('user')->create($commentCreateData);
 
             return response()->json($comment->load('user')->load('likes'));
         } catch (\Exception $e) {

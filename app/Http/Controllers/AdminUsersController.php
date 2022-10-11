@@ -31,11 +31,12 @@ class AdminUsersController extends Controller
     public function updateUser(AdminUpdateUserRequest $request)
     {
         $id = $request->id;
-        User::where('id', $id)->update([
+        $userUpdate = [
             'name' => $request->name,
             'surname' => $request->surname,
             'role' => $request->role
-        ]);
+        ];
+        User::where('id', $id)->update($userUpdate);
 
         $email = User::where('email', $request->email)->first();
         if (!$email) {

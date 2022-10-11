@@ -57,11 +57,11 @@ class AdminProductParametersController extends Controller
     public function addSubCategory(Request $request)
     {
         $cat = Category::where('category', $request->parentCategory)->first();
-
-        $subcategory = Subcategory::create([
+        $subcategoryCreate = [
             'category_id' => $cat->id,
             'subcategory' => $request->subCategory
-        ]);
+        ];
+        $subcategory = Subcategory::create($subcategoryCreate);
         $subcategory = Subcategory::with('category')
                                   ->where('id', $subcategory->id)
                                   ->first();

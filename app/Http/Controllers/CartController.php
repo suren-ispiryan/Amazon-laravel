@@ -11,11 +11,12 @@ class CartController extends Controller
 {
     public function addToCart ($id, $count)
     {
-        Cart::create([
+        $cartCreateData = [
             'user_id' => auth()->user()->id,
             'product_id' => $id,
             'product_count' => $count,
-        ]);
+        ];
+        Cart::create($cartCreateData);
 
         $full_added_data = Cart::with('user')
                                ->with('product')
@@ -55,9 +56,7 @@ class CartController extends Controller
                             ->where('user_id', auth()->user()->id)
                             ->where('product_id', $id)
                             ->first();
-        $removed_item->update([
-            'product_count' => 0
-        ]);
+        $removed_item->update(['product_count' => 0]);
         $removed_item->delete();
 
         return response()->json($removed_item);
@@ -88,7 +87,7 @@ class CartController extends Controller
             // check if cart product exists in orders
             $inOrder = Order::where('cart_id', $cart_product->id)->get();
             if (count($inOrder) === 0) {
-                $order = Order::with('cart')->create([
+                $orderCreateData = [
                     'cart_id' => $cart_product->id,
                     'owner_id' => $cart_product->product->user->id,
                     'customer_id' => auth()->user()->id,
@@ -96,7 +95,8 @@ class CartController extends Controller
                     'price' => $cart_product->product->price,
                     'address' => $cart_product->user->addresses->where('default', 1)[0]->id,
                     'product_id' => $cart_products->product->id
-                ]);
+                ];
+                $order = Order::with('cart')->create($orderCreateData);
                 // in stock minus
                 $p = Product::where('id', $order->cart->product_id)->first();
                 Product::where('id', $order->cart->product_id)->update([

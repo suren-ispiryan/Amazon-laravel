@@ -20,13 +20,14 @@ class SignController extends Controller
         if ($request->password === $request->confirmation) {
             $str = rand();
             $token = md5($str);
-            $user = User::create([
+            $userInfo = [
                 'name' => $request->name,
                 'surname' => $request->surname,
                 'email' => $request->email,
                 'password' => $request->password,
                 'token' => $token
-            ]);
+            ];
+            $user = User::create($userInfo);
             if ($user) {
                 Auth::login($user);
                 Mail::to($request->email)->send(new VerifyMail($token));
@@ -34,11 +35,12 @@ class SignController extends Controller
                 $ids = $request->guestCardProducts;
                 if ($ids) {
                     foreach ($ids as $id) {
-                        Cart::create([
+                        $cartInfo = [
                             'user_id' => auth()->user()->id,
                             'product_id' => (int)$id['id'],
                             'product_count' => (int)$id['count'],
-                        ]);
+                        ];
+                        Cart::create($cartInfo);
                     }
                 }
                 return response('success');

@@ -40,7 +40,7 @@ class AdminProductsController extends Controller
             $product = Product::where('id', $request->id)->first();
             Product::where('id', $request->id)->update(['picture' => $product->picture]);
         }
-        $product = Product::where('id', $request->id)->update([
+        $productUpdateData = [
             'user_id' => auth()->user()->id,
             'name' => $request->name,
             'description' => $request->description,
@@ -50,7 +50,8 @@ class AdminProductsController extends Controller
             'size' => $request->size,
             'category' => $request->category,
             'in_stock' => $request->inStock
-        ]);
+        ];
+        $product = Product::where('id', $request->id)->update($productUpdateData);
         if ($product) {
             $updated_product = Product::with('user')
                                       ->with('carts.order')

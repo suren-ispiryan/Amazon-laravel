@@ -25,7 +25,7 @@ class ProductController extends Controller
                 $file->move($destinationPath,$image_name);
             }
 
-            $product = Product::create([
+            $productData = [
                 'user_id' => auth()->user()->id,
                 'name' => $request->name,
                 'description' => $request->description,
@@ -35,13 +35,16 @@ class ProductController extends Controller
                 'size' => $request->size,
                 'category' => $request->category,
                 'subcategory' => $request->subcategory !== 'undefined'
-                              && $request->subcategory !== null
-                                 ? $request->subcategory
-                                 : $request->category,
+                && $request->subcategory !== null
+                    ? $request->subcategory
+                    : $request->category,
                 'picture' => $image_name,
                 'in_stock' => $request->in_stock,
                 'published' => 0
-            ]);
+            ];
+
+            $product = Product::create($productData);
+
             if ($product) {
                 $created_product = Product::with('user')
                                           ->with('orders')
@@ -117,9 +120,7 @@ class ProductController extends Controller
             $destinationPath = public_path('assets/product_images');
             $file->move($destinationPath,$image_name);
             Product::where('id', $request->id)
-                   ->update([
-                       'picture' => $image_name
-                   ]);
+                   ->update(['picture' => $image_name]);
         } else {
             $product = Product::where('id', $request->id)->first();
             Product::where('id', $request->id)
@@ -128,8 +129,8 @@ class ProductController extends Controller
                    ]);
         }
 
-        Product::where('id', $request->id)->update([
-                'user_id' => auth()->user()->id,
+        $productUpdateData = [
+        'user_id' => auth()->user()->id,
                 'name' => $request->name,
                 'description' => $request->description,
                 'brand' => $request->brand,
@@ -138,7 +139,9 @@ class ProductController extends Controller
                 'size' => $request->size,
                 'category' => $request->category,
                 'in_stock' => $request->in_stock
-        ]);
+        ];
+
+        Product::where('id', $request->id)->update($productUpdateData);
 
         $updated_product = Product::with('user')
                                   ->with('orders')
@@ -184,14 +187,14 @@ class ProductController extends Controller
                     ->where('likeable_id', $id)
                     ->where('likeable_type', Product::class)
                     ->first();
-
         if (!$like) {
-            $like = Like::create([
+            $LikeData = [
                 'likeable_id' => $id,
                 'likeable_type' => Product::class,
                 'user_id' => Auth::user()->id,
                 'count' => 1
-            ]);
+            ];
+            $like = Like::create($LikeData);
 
             $like->where('likeable_type', Product::class)
                  ->where('likeable_id', $id)

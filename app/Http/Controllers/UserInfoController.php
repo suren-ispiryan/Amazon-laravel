@@ -12,7 +12,7 @@ class UserInfoController extends Controller
 {
     public function createAddress (CreateAddressRequest $request)
     {
-        $address = Address::create([
+        $address = [
             'user_id' => auth()->user()->id,
             'name' => $request->name,
             'number' => $request->number,
@@ -21,7 +21,10 @@ class UserInfoController extends Controller
             'street' => $request->street,
             'zip' => $request->zip,
             'default' => false,
-        ]);
+        ];
+
+        $address = Address::create($address);
+
         if ($address) {
             $userData = Address::with('users')
                                ->where('number', $request->number)
