@@ -71,7 +71,7 @@ class CartController extends Controller
                 $data = Product::with('user')
                                ->where('id', $id)
                                ->first();
-                array_push($user_added_products, $data);
+                $user_added_products[] = $data;
             }
             return response()->json($user_added_products);
         } catch (\Exception $e) {
