@@ -64,16 +64,19 @@ class CartController extends Controller
 
     public function getGuestCartProducts (Request $request)
     {
-        $ids = $request->guestCartProducts;
-        $user_added_products = [];
-        foreach ($ids as $id) {
-            $data = Product::with('user')
-                           ->where('id', $id)
-                           ->first();
-            array_push($user_added_products, $data);
+        try {
+            $ids = $request->guestCartProducts;
+            $user_added_products = [];
+            foreach ($ids as $id) {
+                $data = Product::with('user')
+                               ->where('id', $id)
+                               ->first();
+                array_push($user_added_products, $data);
+            }
+            return response()->json($user_added_products);
+        } catch (\Exception $e) {
+            return response()->json($e);
         }
-
-        return response()->json($user_added_products);
     }
 
     public function buyProductsFromCart ()

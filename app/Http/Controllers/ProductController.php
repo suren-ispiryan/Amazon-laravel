@@ -7,7 +7,6 @@ use App\Models\Like;
 use App\Models\Subcategory;
 use Carbon\Carbon;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -173,7 +172,6 @@ class ProductController extends Controller
         try {
             $category = Category::where('category', $category_name)->first();
             $categoryId = $category->id;
-
             $subcategories = Subcategory::where('category_id', $categoryId)->get();
             return response()->json($subcategories);
         } catch (\Exception $e) {
