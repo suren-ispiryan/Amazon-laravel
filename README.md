@@ -37,10 +37,12 @@ Amazon
    TLS: Optional (STARTTLS on all ports)
 
 //========Captcha========\\
-13) 14.1 Captcha site-key for connecting frontend and backend
+13) 13.1 Captcha site-key for connecting frontend and backend
          REACT_APP_SITE_KEY=6LdnJnYiAAAAAHtXqZf7ZQOkceIB72wuWgPei7yR
-    14.2 Captcha secret-key for connecting backend and google profile
-         RECAPTCHA_KEY=6LdnJnYiAAAAABZS3vOtysSp-_j0uKmnNo6nFe1O 
+    13.2 Captcha secret-key for connecting backend and google profile
+         RECAPTCHA_KEY=6LdnJnYiAAAAABZS3vOtysSp-_j0uKmnNo6nFe1O
+    13.3 Recaptcha verify api link
+         RECAPTCHA_SITE_VERIFY=https://www.google.com/recaptcha/api/siteverify
 
 //========Run project========\\
 14) php artisan serve
