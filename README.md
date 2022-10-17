@@ -36,11 +36,17 @@ Amazon
    Auth: USER/PASS, PLAIN, LOGIN, APOP and CRAM-MD5
    TLS: Optional (STARTTLS on all ports)
 
+//========Captcha========\\
+13) 14.1 Captcha site-key for connecting frontend and backend
+         REACT_APP_SITE_KEY=6LdnJnYiAAAAAHtXqZf7ZQOkceIB72wuWgPei7yR
+    14.2 Captcha secret-key for connecting backend and google profile
+         RECAPTCHA_KEY=6LdnJnYiAAAAABZS3vOtysSp-_j0uKmnNo6nFe1O 
+
 //========Run project========\\
-13) php artisan serve
+14) php artisan serve
 
 //=========Login========\\
-14) for admin login go to "/login-admin" page
+15) for admin login go to "/login-admin" page
     for user login  go to "/login" page
 
 
@@ -81,6 +87,7 @@ Registration
 + Password
 + Re-enter password
 + Confirm email
++ Captcha v3
 
 Logged In User
 + Form validations.

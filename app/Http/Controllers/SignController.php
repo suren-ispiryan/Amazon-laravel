@@ -5,29 +5,34 @@ use App\Mail\User\VerifyMail;
 use App\Models\User;
 use App\Models\Cart;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class SignController extends Controller
 {
     public function register (RegisterRequest $request)
     {
-        if ($request->password === $request->confirmation) {
-            $str = rand();
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request['g-recaptcha-response'],
+            'remoteip' => $request->ip(),
+        ]);
+        if (($response['success'] === true) && $request->password === $request->confirmation) {
+            $str = mt_rand();
             $token = md5($str);
-            $userInfo = [
+            $user_info = [
                 'name' => $request->name,
                 'surname' => $request->surname,
                 'email' => $request->email,
                 'password' => $request->password,
                 'token' => $token
             ];
-            $user = User::create($userInfo);
+
+            $user = User::create($user_info);
             if ($user) {
                 Auth::login($user);
                 Mail::to($request->email)->send(new VerifyMail($token));
@@ -35,15 +40,15 @@ class SignController extends Controller
                 $ids = $request->guestCardProducts;
                 if ($ids) {
                     foreach ($ids as $id) {
-                        $cartInfo = [
+                        $cart_info = [
                             'user_id' => auth()->user()->id,
                             'product_id' => (int)$id['id'],
                             'product_count' => (int)$id['count'],
                         ];
-                        Cart::create($cartInfo);
+                        Cart::create($cart_info);
                     }
                 }
-                return response('success');
+                return response($request);
             }
         }
         $request_errors = new RegisterRequest();
