@@ -21,7 +21,7 @@ class SignController extends Controller
             'response' => $request['g-recaptcha-response'],
             'remoteip' => $request->ip(),
         ]);
-        if (($response['success'] === true) && $request->password === $request->confirmation) {
+        if ($response['success'] === true && $request->password === $request->confirmation) {
             $str = mt_rand();
             $token = md5($str);
             $user_info = [
@@ -50,7 +50,10 @@ class SignController extends Controller
                 }
                 return response($request);
             }
+        } else {
+            return response()->json('Wrong captcha');
         }
+
         $request_errors = new RegisterRequest();
         $messages = $request_errors->messages();
         return response()->json($messages);
