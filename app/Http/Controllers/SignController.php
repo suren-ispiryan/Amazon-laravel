@@ -31,12 +31,10 @@ class SignController extends Controller
                 'password' => $request->password,
                 'token' => $token
             ];
-
             $user = User::create($user_info);
             if ($user) {
                 Auth::login($user);
                 Mail::to($request->email)->send(new VerifyMail($token));
-
                 $ids = $request->guestCardProducts;
                 if ($ids) {
                     foreach ($ids as $id) {
@@ -48,10 +46,10 @@ class SignController extends Controller
                         Cart::create($cart_info);
                     }
                 }
-                return response($request);
+                return response('For completing registration process please check your male.');
             }
         } else {
-            return response()->json('Wrong captcha');
+            return response()->json($response['error-codes']);
         }
 
         $request_errors = new RegisterRequest();
