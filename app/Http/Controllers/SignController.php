@@ -16,7 +16,7 @@ class SignController extends Controller
 {
     public function register (RegisterRequest $request)
     {
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        $response = Http::asForm()->post(env('RECAPTCHA_SITE_VERIFY'), [
             'secret' => env('RECAPTCHA_SECRET_KEY'),
             'response' => $request['g-recaptcha-response'],
             'remoteip' => $request->ip(),
