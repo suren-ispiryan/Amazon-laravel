@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminOrdersController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminProductParametersController;
 use App\Http\Controllers\SavedForLaterController;
+use App\Http\Controllers\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-saved-for-later', [SavedForLaterController::class, 'getSaveForLater']);
     Route::get('/save-product-for-later/{id}', [SavedForLaterController::class, 'saveForLater']);
     Route::delete('/remove-product-from-save-for-later/{id}', [SavedForLaterController::class, 'removeSaveForLater']);
+    // messages
+    Route::get('/get-chat-messages', [MessagesController::class, 'getChatMessages']);
+    Route::get('/get-chosen-user-messages/{id}', [MessagesController::class, 'chosenUsersMessages']);
     // admin login
     Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
     // admin products

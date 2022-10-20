@@ -106,6 +106,7 @@ Logged In User
 + Automatically send emails to users about added products in past 24 hours.
 + Product comment crud, like, unlike.
 + Product like, unlike.
+- Realtime chat.
 
 My Store
 + Product CRUD.
