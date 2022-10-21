@@ -34,8 +34,12 @@ class MessagesController extends Controller
     }
 
     public function chosenUsersMessages ($id) {
+        $sent_messages = Message::where('receiver_id', $id)
+                                ->where('sender_id', Auth::user()->id)->with('user_receiver')
+                                ->orwhere('sender_id', $id)
+                                ->where('receiver_id', Auth::user()->id)->with('user_sender')
+                                ->get();
 
-
-        return response()->json($id);
+        return response()->json($sent_messages);
     }
 }
