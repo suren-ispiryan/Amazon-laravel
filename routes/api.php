@@ -47,10 +47,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('delete-product-image/{id}', [ProductController::class, 'deleteProductImage']);
     Route::delete('delete-auth-user-products/{id}', [ProductController::class, 'deleteAuthUserProducts']);
     // Comments
-    Route::post('create-product-comment', [CommentsController::class, 'createProductComment']);
     Route::get('get-products-comments/{id}', [CommentsController::class, 'getProductComments']);
     Route::get('like-products-comments/{id}', [CommentsController::class, 'likeProductComments']);
     Route::get('dislike-products-comments/{id}', [CommentsController::class, 'dislikeProductComments']);
+    Route::post('create-product-comment', [CommentsController::class, 'createProductComment']);
     Route::delete('delete-product-comment/{id}', [CommentsController::class, 'deleteProductComment']);
     // Profile
     Route::get('get-user-data', [UserInfoController::class, 'getUserInfo']);
@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // messages
     Route::get('/get-chat-messages', [MessagesController::class, 'getChatMessages']);
     Route::get('/get-chosen-user-messages/{id}', [MessagesController::class, 'chosenUsersMessages']);
+    Route::post('create-message/{id}', [MessagesController::class, 'createMessage']);
     // admin login
     Route::get('get-auth-user-role', [SignController::class, 'getAuthUserRole']);
     // admin products

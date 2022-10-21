@@ -44,11 +44,19 @@ Amazon
     13.3 Recaptcha verify api link
          RECAPTCHA_SITE_VERIFY=https://www.google.com/recaptcha/api/siteverify
 
+//=======Pusher=======\\
+14) 14.1 Run in terminal "composer require pusher/pusher-php-server" command
+    set global variables in .env
+    14.2 PUSHER_APP_ID=1495258
+    14.3 PUSHER_APP_KEY=6014ac3bdb98a5b9f8c9
+    14.4 PUSHER_APP_SECRET=a706d53303217cc5939a
+    14.5 PUSHER_APP_CLUSTER=mt1
+
 //========Run project========\\
-14) php artisan serve
+15) php artisan serve
 
 //=========Login========\\
-15) for admin login go to "/login-admin" page
+16) for admin login go to "/login-admin" page
     for user login  go to "/login" page
 
 

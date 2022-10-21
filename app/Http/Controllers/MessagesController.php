@@ -39,7 +39,20 @@ class MessagesController extends Controller
                                 ->orwhere('sender_id', $id)
                                 ->where('receiver_id', Auth::user()->id)->with('user_sender')
                                 ->get();
-
         return response()->json($sent_messages);
+    }
+
+    public function createMessage (Request $request, $id) {
+        $message = $request->messageText;
+        $created_message = Message::create([
+            'sender_id' => Auth::user()->id,
+            'receiver_id' => $id,
+            'message' => $message
+        ]);
+        if ($created_message) {
+//            event(new Message($message));
+            return response()->json($created_message->load(['user_sender', 'user_receiver']));
+        }
+        return response()->json('Failure');
     }
 }
