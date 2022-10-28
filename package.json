@@ -10,5 +10,10 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^2.9.11"
+    },
+    "dependencies": {
+        "laravel-echo": "^1.14.0",
+        "pusher-js": "^7.4.0"
     }
 }
+

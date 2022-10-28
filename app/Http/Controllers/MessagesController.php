@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Events\Message as eventMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ class MessagesController extends Controller
                                 ->where('sender_id', Auth::user()->id)->with('user_receiver')
                                 ->orwhere('sender_id', $id)
                                 ->where('receiver_id', Auth::user()->id)->with('user_sender')
+//                                ->limit(10)
                                 ->get();
         return response()->json($sent_messages);
     }
@@ -50,8 +52,9 @@ class MessagesController extends Controller
             'message' => $message
         ]);
         if ($created_message) {
-//            event(new Message($message));
-            return response()->json($created_message->load(['user_sender', 'user_receiver']));
+            $full_message = $created_message->load(['user_sender', 'user_receiver']);
+            event(new eventMessage($full_message));
+            return response()->json($full_message);
         }
         return response()->json('Failure');
     }

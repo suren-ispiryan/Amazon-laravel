@@ -2,44 +2,45 @@
 
 namespace App\Events;
 
+
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class Message implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $fullMessage;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($full_message)
     {
-        $this->message = $message;
+        $this->fullMessage = $full_message;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return string[]
      */
     public function broadcastOn()
     {
+        log::info(111);
+//        return new Channel('chat');
         return ['chat'];
-//        return new PrivateChannel('channel-name');
-//        return new public('channel-name');
     }
 
     public function broadcastAs()
     {
-        return 'chat-message';
+        log::info(222);
+        return 'message';
     }
 }
