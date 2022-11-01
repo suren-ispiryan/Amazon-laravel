@@ -4,16 +4,15 @@ namespace App\Events;
 
 
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithBroadcasting;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class Message implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    use Dispatchable, InteractsWithSockets, SerializesModels, InteractsWithBroadcasting;
     public $fullMessage;
 
     /**
@@ -33,14 +32,11 @@ class Message implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        log::info(111);
-//        return new Channel('chat');
         return ['chat'];
     }
 
     public function broadcastAs()
     {
-        log::info(222);
         return 'message';
     }
 }
